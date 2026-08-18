@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Page Not Found | Stackly Premium Footwear</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --cream: #FFF8EB;
+            --white: #ffffff;
+            --dark: #2C1F14;
+            --gold: #FF9F1C;
+            --gold-light: #FFC06E;
+            --gold-glow: rgba(255, 159, 28, 0.15);
+            --gray-100: #FFF1D6;
+            --gray-200: #F0E3CB;
+            --gray-300: #DCCFB7;
+            --gray-400: #9C8E79;
+            --text: #2C1F14;
+            --text-light: #6A5E53;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Background patterns and animations */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: radial-gradient(var(--gold) 1.5px, transparent 1.5px);
+            background-size: 32px 32px;
+            z-index: 1;
+        }
+
+        .orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: var(--gold-light);
+        }
+
+        .orb-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: var(--gold);
+        }
+
+        .error-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 24px 80px rgba(44, 31, 20, 0.08);
+            z-index: 10;
+            position: relative;
+        }
+
+        .logo-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-wrap img {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .shoe-icon-container {
+            font-size: 5rem;
+            color: var(--gold);
+            margin: 20px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .shoe-icon-container i {
+            display: inline-block;
+            transform-origin: center;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--gold), #e0830b);
+            color: var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 30px var(--gold-glow);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 36px rgba(255, 159, 28, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--gray-300);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: transparent;
+        }
+
+        @media (max-width: 480px) {
+            .error-card {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 4.5rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-pattern"></div>
+    <div class="orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="error-card">
+        <div class="logo-wrap">
+            <a href="index.html">
+                <img src="logo_trimmed.webp" alt="Stackly" />
+            </a>
+        </div>
+        <h1>404</h1>
+        <h2>Lost your stride?</h2>
+        <div class="shoe-icon-container">
+            <i class="fas fa-shoe-prints" id="shoeIcon"></i>
+        </div>
+        <p>
+            The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Let's get you back on track.
+        </p>
+        <div class="btn-group">
+            <button onclick="window.history.back()" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Go Back
+            </button>
+            <a href="index.html" class="btn">
+                <i class="fas fa-home"></i> Back to Homepage
+            </a>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            // Animate card entrance
+            gsap.from('.error-card', {
+                opacity: 0,
+                y: 50,
+                scale: 0.95,
+                duration: 1.2,
+                ease: 'power3.out'
+            });
+
+            // Gentle pulsing/walking animation for the shoe prints
+            gsap.to('#shoeIcon', {
+                y: -10,
+                rotation: -5,
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            // Gentle orb animation
+            gsap.to('.orb-1', {
+                x: 30,
+                y: -30,
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+            gsap.to('.orb-2', {
+                x: -30,
+                y: 30,
+                duration: 8,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                delay: 2
+            });
+        });
+    </script>
+</body>
+
+</html>

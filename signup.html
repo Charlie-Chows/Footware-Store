@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Sign Up | Stackly Premium Footwear</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- GSAP + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrambleTextPlugin.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           LOGO STYLES — GOLD THEME
+           ============================================================ */
+        .logo img,
+        .logo-sm img {
+            width: auto;
+            display: block;
+            border-radius: 8px;
+            transition: filter 0.3s ease, transform 0.3s ease;
+            height: 45px;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .logo img:hover,
+        .logo-sm img:hover {
+            filter: brightness(0) saturate(100%) invert(75%) sepia(80%) saturate(1100%) hue-rotate(345deg) brightness(105%) contrast(105%);
+            transform: scale(1.04);
+        }
+
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        :root {
+            --cream: #FFF8EB;
+            --white: #ffffff;
+            --dark: #2C1F14;
+            --gold: #FF9F1C;
+            --gold-light: #FFC06E;
+            --gold-glow: rgba(255, 159, 28, 0.15);
+            --gray-100: #FFF1D6;
+            --gray-200: #F0E3CB;
+            --gray-300: #DCCFB7;
+            --gray-400: #9C8E79;
+            --text: #2C1F14;
+            --text-light: #6A5E53;
+            --shadow-sm: 0 2px 12px rgba(44, 31, 20, 0.03);
+            --shadow-md: 0 8px 32px rgba(44, 31, 20, 0.06);
+            --shadow-lg: 0 16px 56px rgba(44, 31, 20, 0.08);
+            --shadow-xl: 0 24px 80px rgba(44, 31, 20, 0.10);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            font-family: var(--font);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            box-shadow: 0 8px 28px var(--gold-glow);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 14px 44px var(--gold-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        /* ============================================================
+           AUTH CARD
+           ============================================================ */
+        .auth-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 44px 40px 40px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-xl);
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .auth-card .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-card .auth-header .auth-icon {
+            width: 56px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(201, 168, 76, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+
+        .auth-card .auth-header .logo-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .auth-card .auth-header .logo-wrap img {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) saturate(100%) invert(73%) sepia(60%) saturate(800%) hue-rotate(350deg) brightness(105%) contrast(105%);
+        }
+
+        .auth-card .auth-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .auth-card .auth-header p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            margin-top: 4px;
+        }
+
+        .auth-card .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .auth-card .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .auth-card .form-group label .required {
+            color: #dc2626;
+            margin-left: 2px;
+        }
+
+        .auth-card .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.92rem;
+            font-family: var(--font);
+            color: var(--text);
+            background: var(--white);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .auth-card .form-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.08);
+        }
+
+        .auth-card .form-group input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .form-group.dropdown-group {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Custom Dropdown (Role Selector) --- */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            user-select: none;
+            z-index: 20;
+        }
+
+        .custom-dropdown .dropdown-selected {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-size: 0.92rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .custom-dropdown .dropdown-selected:hover {
+            border-color: var(--gold-light);
+        }
+
+        .custom-dropdown .dropdown-selected .arrow {
+            transition: transform 0.3s ease;
+            color: var(--gray-400);
+        }
+
+        .custom-dropdown .dropdown-selected .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .custom-dropdown .dropdown-selected .selected-text {
+            color: var(--text);
+        }
+
+        .custom-dropdown .dropdown-selected .selected-text.placeholder {
+            color: var(--gray-400);
+        }
+
+        .custom-dropdown .dropdown-selected .selected-icon {
+            margin-right: 10px;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .custom-dropdown .dropdown-options {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .custom-dropdown .dropdown-options.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-dropdown .dropdown-options .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            font-size: 0.92rem;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .custom-dropdown .dropdown-options .option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-dropdown .dropdown-options .option:hover {
+            background: rgba(201, 168, 76, 0.06);
+            color: var(--text);
+        }
+
+        .custom-dropdown .dropdown-options .option.active {
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--gold);
+        }
+
+        .custom-dropdown .dropdown-options .option .opt-icon {
+            color: var(--gold);
+            width: 18px;
+            text-align: center;
+        }
+
+        .auth-card .form-actions {
+            margin-top: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-card .form-actions .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
+        }
+
+        .auth-card .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.88rem;
+            color: var(--text-light);
+        }
+
+        .auth-card .form-footer a {
+            color: var(--gold);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .auth-card .form-footer a:hover {
+            color: #b8942e;
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 32px 20px 28px;
+            }
+
+            .auth-card .auth-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .auth-card .auth-header .logo-wrap img {
+                height: 48px;
+            }
+        }
+
+        /* Back to Home Button */
+        .back-home-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 30px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            color: var(--text-light);
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 1000;
+        }
+
+        .back-home-btn:hover {
+            color: var(--gold);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 480px) {
+            .back-home-btn {
+                top: 16px;
+                left: 16px;
+                padding: 8px 14px;
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-home-btn">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <!-- ============================================================
+    SIGNUP CARD
+    ============================================================ -->
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo-wrap">
+                <img src="logo_trimmed.webp" alt="Stackly" />
+            </div>
+            <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+            <h2>Create Account</h2>
+            <p>Join Stackly and start your premium footwear journey</p>
+        </div>
+
+        <form id="signupForm" onsubmit="return handleSignup(event)">
+            <!-- Username -->
+            <div class="form-group">
+                <label for="signupUsername">Username <span class="required">*</span></label>
+                <input type="text" id="signupUsername" placeholder="Choose a username" required />
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="signupEmail">Email Address <span class="required">*</span></label>
+                <input type="email" id="signupEmail" placeholder="you@example.com" required />
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="signupPassword">Password <span class="required">*</span></label>
+                <input type="password" id="signupPassword" placeholder="Create a password" required />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required />
+            </div>
+
+            <!-- Role Dropdown - Custom -->
+            <div class="form-group dropdown-group">
+                <label>Role <span class="required">*</span></label>
+                <div class="custom-dropdown" id="roleDropdown">
+                    <div class="dropdown-selected" id="dropdownSelected">
+                        <span class="selected-text placeholder">
+                            <span class="selected-icon"><i class="fas fa-user"></i></span>
+                            Select your role
+                        </span>
+                        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="dropdown-options" id="dropdownOptions">
+                        <div class="option" data-value="user">
+                            <span class="opt-icon"><i class="fas fa-user"></i></span>
+                            User
+                        </div>
+                        <div class="option" data-value="admin">
+                            <span class="opt-icon"><i class="fas fa-user-shield"></i></span>
+                            Admin
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="roleInput" value="" />
+            </div>
+
+            <!-- Sign Up Button -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-gold">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            </div>
+
+            <!-- Login Link -->
+            <div class="form-footer">
+                Already have an account? <a href="login.html">Sign in here</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- ============================================================
+    GSAP + PLUGINS
+    ============================================================ -->
+    <script>
+        window.addEventListener('load', function () {
+
+            // ============================================================
+            // 1. GSAP AUTH CARD ANIMATION
+            // ============================================================
+            gsap.from('.auth-card', {
+                opacity: 0,
+                y: 50,
+                scale: 0.95,
+                duration: 1.2,
+                ease: 'power3.out',
+                delay: 0.3
+            });
+
+            // Stagger form elements
+            gsap.from('.auth-card .form-group, .auth-card .form-actions, .auth-card .form-footer', {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: 'power3.out',
+                delay: 0.2
+            });
+
+            // ============================================================
+            // 2. CUSTOM DROPDOWN
+            // ============================================================
+            const dropdownSelected = document.getElementById('dropdownSelected');
+            const dropdownOptions = document.getElementById('dropdownOptions');
+            const roleInput = document.getElementById('roleInput');
+            let selectedRole = '';
+
+            dropdownSelected.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdownOptions.classList.toggle('open');
+                this.querySelector('.arrow').classList.toggle('open');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function () {
+                dropdownOptions.classList.remove('open');
+                const arrow = dropdownSelected.querySelector('.arrow');
+                if (arrow) arrow.classList.remove('open');
+            });
+
+            // Select option
+            document.querySelectorAll('.dropdown-options .option').forEach(function (option) {
+                option.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const value = this.dataset.value;
+                    const text = this.textContent.trim();
+                    const icon = this.querySelector('.opt-icon')?.innerHTML || '';
+
+                    selectedRole = value;
+                    roleInput.value = value;
+
+                    // Update selected display
+                    const selectedText = dropdownSelected.querySelector('.selected-text');
+                    selectedText.innerHTML = `<span class="selected-icon">${icon}</span> ${text}`;
+                    selectedText.classList.remove('placeholder');
+
+                    dropdownOptions.classList.remove('open');
+                    dropdownSelected.querySelector('.arrow').classList.remove('open');
+
+                    // Highlight active
+                    document.querySelectorAll('.dropdown-options .option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // ============================================================
+            // 3. SIGNUP HANDLER
+            // ============================================================
+            window.handleSignup = function (event) {
+                event.preventDefault();
+
+                const username = document.getElementById('signupUsername').value.trim();
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value.trim();
+                const confirm = document.getElementById('signupConfirmPassword').value.trim();
+                const role = roleInput.value;
+
+                if (!username || !email || !password || !confirm) {
+                    alert('Please fill in all required fields.');
+                    return false;
+                }
+
+                if (password !== confirm) {
+                    alert('Passwords do not match. Please try again.');
+                    return false;
+                }
+
+                if (!role) {
+                    alert('Please select your role.');
+                    return false;
+                }
+
+                // Redirect to login.html on successful signup
+                window.location.href = 'login.html';
+                return false;
+            };
+
+            console.log('✅ Signup page initialized!');
+
+        }); // end window.load
+    </script>
+
+</body>
+
+</html>

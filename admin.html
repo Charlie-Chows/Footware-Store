@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Admin Dashboard | Stackly Premium Footwear</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        :root {
+            --cream: #FFF8EB;
+            --white: #ffffff;
+            --dark: #2C1F14;
+            --gold: #FF9F1C;
+            --gold-light: #FFC06E;
+            --gold-glow: rgba(255, 159, 28, 0.15);
+            --gray-100: #FFF1D6;
+            --gray-200: #F0E3CB;
+            --gray-300: #DCCFB7;
+            --gray-400: #9C8E79;
+            --text: #2C1F14;
+            --text-light: #6A5E53;
+            --shadow-sm: 0 2px 12px rgba(44, 31, 20, 0.03);
+            --shadow-md: 0 8px 32px rgba(44, 31, 20, 0.06);
+            --shadow-lg: 0 16px 56px rgba(44, 31, 20, 0.08);
+            --shadow-xl: 0 24px 80px rgba(44, 31, 20, 0.10);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --sidebar-width: 260px;
+            --header-height: 72px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ============================================================
+           SIDEBAR
+           ============================================================ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--white);
+            border-right: 1px solid var(--gray-200);
+            padding: 24px 20px;
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar .close-sidebar {
+            display: none;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .sidebar .close-sidebar:hover {
+            color: var(--text);
+            transform: rotate(90deg);
+        }
+
+        /* LOGO - now clickable link */
+        .sidebar .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-200);
+            cursor: pointer;
+        }
+
+        .sidebar .logo-wrap img {
+            height: 45px;
+            width: auto;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .sidebar .logo-wrap span {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .sidebar .logo-wrap span i {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .sidebar .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: rgba(201, 168, 76, 0.06);
+            border-radius: var(--radius-sm);
+            margin-bottom: 24px;
+            border: 1px solid rgba(201, 168, 76, 0.08);
+        }
+
+        .sidebar .user-profile .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar .user-profile .info .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .sidebar .user-profile .info .role {
+            font-size: 0.72rem;
+            color: var(--gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .sidebar .nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.88rem;
+            position: relative;
+        }
+
+        .sidebar .nav a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .sidebar .nav a:hover {
+            background: rgba(201, 168, 76, 0.06);
+            color: var(--text);
+        }
+
+        .sidebar .nav a.active {
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.10), rgba(201, 168, 76, 0.04));
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .sidebar .nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--gold), #b8942e);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sidebar .nav .nav-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-400);
+            padding: 16px 16px 8px;
+            font-weight: 600;
+        }
+
+        .sidebar .logout-btn {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .sidebar .logout-btn a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.88rem;
+        }
+
+        .sidebar .logout-btn a:hover {
+            background: rgba(220, 38, 38, 0.06);
+            color: #dc2626;
+        }
+
+        .sidebar .logout-btn a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ============================================================
+           SIDEBAR OVERLAY
+           ============================================================ */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* ============================================================
+           MAIN CONTENT
+           ============================================================ */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+            padding: 0;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0 32px;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text);
+            border-radius: 4px;
+            transition: all 0.3s;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .header-title h1 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .header-title p {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-right .notification {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        .header-right .notification:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .header-right .notification .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #dc2626;
+            color: var(--white);
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-right .admin-avatar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 4px 12px 4px 4px;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .header-right .admin-avatar:hover {
+            border-color: var(--gold);
+        }
+
+        .header-right .admin-avatar .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .header-right .admin-avatar .name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        /* ============================================================
+           SECTION PAGES
+           ============================================================ */
+        .page {
+            display: none;
+            padding: 32px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+           DASHBOARD — STAT CARDS
+           ============================================================ */
+        .stats-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 1199px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card .stat-icon.gold {
+            background: rgba(201, 168, 76, 0.10);
+            color: var(--gold);
+        }
+
+        .stat-card .stat-icon.blue {
+            background: rgba(37, 99, 235, 0.10);
+            color: #2563eb;
+        }
+
+        .stat-card .stat-icon.green {
+            background: rgba(5, 150, 105, 0.10);
+            color: #059669;
+        }
+
+        .stat-card .stat-icon.purple {
+            background: rgba(124, 58, 237, 0.10);
+            color: #7c3aed;
+        }
+
+        .stat-card .stat-icon.orange {
+            background: rgba(245, 158, 11, 0.10);
+            color: #f59e0b;
+        }
+
+        .stat-card .stat-icon.rose {
+            background: rgba(244, 63, 94, 0.10);
+            color: #f43f5e;
+        }
+
+        .stat-card .stat-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stat-card .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .stat-card .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-top: 2px;
+            padding: 1px 8px;
+            border-radius: 50px;
+        }
+
+        .stat-card .stat-change.up {
+            color: #059669;
+            background: rgba(5, 150, 105, 0.08);
+        }
+
+        .stat-card .stat-change.down {
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .stat-card {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+
+            .stat-card .stat-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.2rem;
+            }
+
+            .stat-card .stat-label {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ============================================================
+           DASHBOARD GRID
+           ============================================================ */
+        .dashboard-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .dashboard-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .dashboard-card .card-header h3 {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .dashboard-card .card-header a {
+            font-size: 0.75rem;
+            color: var(--gold);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .dashboard-card .card-header a:hover {
+            color: #b8942e;
+        }
+
+        /* ============================================================
+           CHART
+           ============================================================ */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            max-width: 100%;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 190px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 150px;
+            }
+
+            .dashboard-card {
+                padding: 14px;
+            }
+        }
+
+        /* ============================================================
+           TABLE
+           ============================================================ */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -4px;
+            padding: 0 4px;
+            width: 100%;
+        }
+
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 550px;
+        }
+
+        .table-wrap table th {
+            text-align: left;
+            padding: 8px 10px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--gray-200);
+            white-space: nowrap;
+        }
+
+        .table-wrap table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .table-wrap table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-wrap table .status {
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .table-wrap table .status.confirmed {
+            background: rgba(5, 150, 105, 0.08);
+            color: #059669;
+        }
+
+        .table-wrap table .status.pending {
+            background: rgba(245, 158, 11, 0.08);
+            color: #f59e0b;
+        }
+
+        .table-wrap table .status.cancelled {
+            background: rgba(220, 38, 38, 0.08);
+            color: #dc2626;
+        }
+
+        .table-wrap table .status.completed {
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
+        }
+
+        .table-wrap table .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .table-wrap table .user-cell .avatar-sm {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.55rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .table-wrap table {
+                font-size: 0.75rem;
+                min-width: 480px;
+            }
+
+            .table-wrap table th,
+            .table-wrap table td {
+                padding: 5px 6px;
+            }
+        }
+
+        /* ============================================================
+           ACTIVITY FEED
+           ============================================================ */
+        .activity-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item .activity-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(201, 168, 76, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .activity-item .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-item .activity-content p {
+            font-size: 0.82rem;
+            color: var(--text);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .activity-item .activity-content p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .activity-item .activity-content .time {
+            font-size: 0.68rem;
+            color: var(--gray-400);
+        }
+
+        /* ============================================================
+           VEHICLES PAGE — FIXED IMAGE SIZING
+           ============================================================ */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .page-header .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .page-header .actions .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+        }
+
+        .vehicles-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        @media (min-width: 992px) {
+            .vehicles-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 991px) {
+            .vehicles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vehicles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .vehicle-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .vehicle-card .vehicle-img {
+            height: 200px;
+            overflow: hidden;
+            background: var(--gray-100);
+            position: relative;
+        }
+
+        .vehicle-card .vehicle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+            transition: transform 0.5s ease;
+        }
+
+        .vehicle-card:hover .vehicle-img img {
+            transform: scale(1.04);
+        }
+
+        @media (max-width: 991px) {
+            .vehicle-card .vehicle-img {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vehicle-card .vehicle-img {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vehicle-card .vehicle-img {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .vehicle-card .vehicle-img {
+                height: 150px;
+            }
+        }
+
+        .vehicle-card .vehicle-info {
+            padding: 14px 16px 16px;
+        }
+
+        .vehicle-card .vehicle-info .name {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .vehicle-card .vehicle-info .price {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 2px 0 4px;
+        }
+
+        .vehicle-card .vehicle-info .price span {
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+
+        .vehicle-card .vehicle-info .specs {
+            display: flex;
+            gap: 10px;
+            font-size: 0.68rem;
+            color: var(--gray-400);
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .vehicle-card .vehicle-info .specs i {
+            color: var(--gold);
+            margin-right: 2px;
+        }
+
+        .vehicle-card .vehicle-info .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .vehicle-card .vehicle-info .status-badge.available {
+            background: rgba(5, 150, 105, 0.08);
+            color: #059669;
+        }
+
+        .vehicle-card .vehicle-info .status-badge.rented {
+            background: rgba(245, 158, 11, 0.08);
+            color: #f59e0b;
+        }
+
+        .vehicle-card .vehicle-info .status-badge.maintenance {
+            background: rgba(220, 38, 38, 0.08);
+            color: #dc2626;
+        }
+
+        .vehicle-card .vehicle-info .actions-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--gray-100);
+            flex-wrap: wrap;
+        }
+
+        .vehicle-card .vehicle-info .actions-row .btn-icon {
+            padding: 3px 10px;
+            font-size: 0.68rem;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vehicle-card .vehicle-info .actions-row .btn-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .vehicle-card .vehicle-info .actions-row .btn-icon.danger:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        /* ============================================================
+           USERS PAGE
+           ============================================================ */
+        .users-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        @media (min-width: 992px) {
+            .users-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 991px) {
+            .users-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .users-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .user-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .user-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-card .avatar-lg {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .user-card .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .user-card .email {
+            font-size: 0.74rem;
+            color: var(--text-light);
+            word-break: break-all;
+        }
+
+        .user-card .role-badge {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .user-card .role-badge.admin {
+            background: rgba(124, 58, 237, 0.08);
+            color: #7c3aed;
+        }
+
+        .user-card .role-badge.user {
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
+        }
+
+        .user-card .actions-row {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray-100);
+            flex-wrap: wrap;
+        }
+
+        .user-card .actions-row .btn-icon {
+            padding: 3px 10px;
+            font-size: 0.68rem;
+            border-radius: 50px;
+            border: 1px solid var(--gray-200);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-card .actions-row .btn-icon:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .user-card .actions-row .btn-icon.danger:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        /* ============================================================
+           FILTER BAR — with custom dropdowns
+           ============================================================ */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            width: 180px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 20;
+            flex: 1 1 140px;
+            min-width: 120px;
+        }
+
+        .custom-dropdown .dropdown-selected {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            font-size: 0.78rem;
+            color: var(--text);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-height: 38px;
+        }
+
+        .custom-dropdown .dropdown-selected:hover {
+            border-color: var(--gold-light);
+        }
+
+        .custom-dropdown .dropdown-selected .arrow {
+            transition: transform 0.3s ease;
+            color: var(--gray-400);
+            margin-left: 8px;
+        }
+
+        .custom-dropdown .dropdown-selected .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .custom-dropdown .dropdown-selected .selected-text {
+            color: var(--text);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .custom-dropdown .dropdown-selected .selected-text.placeholder {
+            color: var(--gray-400);
+        }
+
+        .custom-dropdown .dropdown-options {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            overflow: hidden;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .custom-dropdown .dropdown-options.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-dropdown .dropdown-options .option {
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--gray-100);
+            white-space: nowrap;
+        }
+
+        .custom-dropdown .dropdown-options .option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-dropdown .dropdown-options .option:hover {
+            background: rgba(201, 168, 76, 0.06);
+            color: var(--text);
+        }
+
+        .custom-dropdown .dropdown-options .option.active {
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--gold);
+        }
+
+        .filter-bar .custom-dropdown {
+            flex: 1 1 140px;
+            min-width: 120px;
+        }
+
+        .filter-bar input[type="text"],
+        .filter-bar input[type="date"] {
+            padding: 6px 12px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.78rem;
+            font-family: var(--font);
+            color: var(--text);
+            background: var(--white);
+            outline: none;
+            transition: all 0.3s ease;
+            flex: 1 1 140px;
+            min-width: 120px;
+            height: 38px;
+        }
+
+        .filter-bar input[type="text"]:focus,
+        .filter-bar input[type="date"]:focus {
+            border-color: var(--gold);
+        }
+
+        @media (max-width: 600px) {
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-bar .custom-dropdown,
+            .filter-bar input[type="text"],
+            .filter-bar input[type="date"] {
+                width: 100%;
+                flex: 1 1 auto;
+                min-width: unset;
+            }
+
+            .custom-dropdown {
+                width: 100%;
+            }
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: var(--font);
+            letter-spacing: 0.2px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            box-shadow: 0 4px 20px var(--gold-glow);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--gold-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 0.72rem;
+        }
+
+        /* ============================================================
+           RESPONSIVE — OVERALL
+           ============================================================ */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                max-width: 100%;
+                transform: translateX(-100%);
+                border-right: none;
+                border-radius: 0;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar .close-sidebar {
+                display: block;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header {
+                padding: 0 16px;
+            }
+
+            .page {
+                padding: 16px 14px;
+            }
+
+            .header-title h1 {
+                font-size: 1rem;
+            }
+
+            .header-title p {
+                font-size: 0.7rem;
+            }
+
+            .header-right .admin-avatar .name {
+                display: none;
+            }
+
+            .page-header h2 {
+                font-size: 1.1rem;
+            }
+
+            .page-header .actions .btn-sm {
+                padding: 4px 10px;
+                font-size: 0.68rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0 10px;
+                height: 45px;
+            }
+
+            .header-title h1 {
+                font-size: 0.85rem;
+            }
+
+            .header-title p {
+                display: none;
+            }
+
+            .header-right .notification {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+
+            .header-right .notification .badge {
+                width: 14px;
+                height: 14px;
+                font-size: 0.5rem;
+                top: -3px;
+                right: -3px;
+            }
+
+            .page {
+                padding: 10px 8px;
+            }
+
+            .page-header h2 {
+                font-size: 0.95rem;
+            }
+
+            .page-header .actions {
+                gap: 4px;
+            }
+
+            .page-header .actions .btn-sm {
+                padding: 3px 8px;
+                font-size: 0.6rem;
+            }
+
+            .dashboard-card {
+                padding: 10px;
+            }
+
+            .stats-grid {
+                gap: 8px;
+            }
+
+            .stat-card {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .stat-card .stat-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+                border-radius: 8px;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1rem;
+            }
+
+            .stat-card .stat-label {
+                font-size: 0.65rem;
+            }
+
+            .vehicles-grid,
+            .users-grid {
+                gap: 10px;
+            }
+
+            .vehicle-card .vehicle-img {
+                height: 180px;
+            }
+
+            .user-card {
+                padding: 14px 12px;
+            }
+
+            .user-card .avatar-lg {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+
+            .user-card .name {
+                font-size: 0.8rem;
+            }
+
+            .user-card .email {
+                font-size: 0.68rem;
+            }
+
+            .activity-item .activity-content p {
+                font-size: 0.75rem;
+            }
+
+            .filter-bar input[type="text"],
+            .filter-bar input[type="date"] {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                height: 34px;
+            }
+
+            .custom-dropdown .dropdown-selected {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                min-height: 34px;
+            }
+
+            .custom-dropdown .dropdown-options .option {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+
+            .table-wrap table {
+                font-size: 0.65rem;
+                min-width: 400px;
+            }
+
+            .table-wrap table th,
+            .table-wrap table td {
+                padding: 4px 5px;
+            }
+
+            .table-wrap table .user-cell .avatar-sm {
+                width: 20px;
+                height: 20px;
+                font-size: 0.45rem;
+            }
+
+            .table-wrap table .status {
+                font-size: 0.55rem;
+                padding: 1px 6px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .vehicle-card .vehicle-img {
+                height: 150px;
+            }
+
+            .page-header h2 {
+                font-size: 0.85rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    SIDEBAR OVERLAY
+    ============================================================ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================================
+    SIDEBAR — with close button and clickable logo
+    ============================================================ -->
+    <aside class="sidebar" id="sidebar">
+        <button class="close-sidebar" id="closeSidebar" aria-label="Close sidebar">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <!-- LOGO now clickable to index.html -->
+        <a href="index.html" class="logo-wrap" style="text-decoration:none;">
+            <img src="logo_trimmed.webp" alt="Stackly" />
+        </a>
+
+        <div class="user-profile">
+            <div class="avatar" id="sidebarAvatar">S</div>
+            <div class="info">
+                <div class="name" id="sidebarName">Admin</div>
+                <div class="role">Administrator</div>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <div class="nav-label">Main</div>
+            <a href="#" class="active" data-page="dashboard">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="#" data-page="vehicles">
+                <i class="fas fa-shoe-prints"></i> Shoes
+            </a>
+            <a href="#" data-page="bookings">
+                <i class="fas fa-shopping-bag"></i> Orders
+            </a>
+            <a href="#" data-page="users">
+                <i class="fas fa-users"></i> Users
+            </a>
+
+            <div class="nav-label" style="margin-top:12px;">Account</div>
+            <a href="index.html">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="hamburger" id="hamburger" aria-label="Toggle sidebar">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="header-title">
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back, <span id="greetingName">Admin</span></p>
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- Notification -> 404 -->
+                <div class="notification" data-redirect="404">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <!-- Admin avatar -> 404 -->
+                <div class="admin-avatar" data-redirect="404">
+                    <div class="avatar" id="headerAvatar">S</div>
+                    <span class="name" id="headerName">Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================
+        PAGE: DASHBOARD
+        ============================================================ -->
+        <section class="page active" id="page-dashboard">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon gold"><i class="fas fa-shoe-prints"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">48</div>
+                        <div class="stat-label">Total Styles</div>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 12%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-shopping-bag"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">127</div>
+                        <div class="stat-label">Active Orders</div>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 8%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-users"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">2,341</div>
+                        <div class="stat-label">Total Users</div>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 18%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">$84.5k</div>
+                        <div class="stat-label">Monthly Revenue</div>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 23%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fas fa-star"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Avg Rating</div>
+                        <span class="stat-change up"><i class="fas fa-arrow-up"></i> 0.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rose"><i class="fas fa-clock"></i></div>
+                    <div class="stat-content">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Pending Reviews</div>
+                        <span class="stat-change down"><i class="fas fa-arrow-down"></i> 2%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Order Overview</h3>
+                        <a href="404.html" data-redirect="404">View All</a>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="bookingChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <a href="404.html" data-redirect="404">View All</a>
+                    </div>
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-shoe-prints"></i></div>
+                            <div class="activity-content">
+                                <p><strong>John D.</strong> ordered a <strong>Air Monarch Sport</strong></p>
+                                <span class="time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                            <div class="activity-content">
+                                <p><strong>Sarah M.</strong> created a new account</p>
+                                <span class="time">4 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                            <div class="activity-content">
+                                <p><strong>Robert K.</strong> left a 5★ review</p>
+                                <span class="time">6 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="activity-content">
+                                <p><strong>Emily W.</strong> ordered a <strong>Trailblazer Runner</strong></p>
+                                <span class="time">8 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Recent Orders</h3>
+                    <a href="404.html" data-page="bookings">View All</a>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Style</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">JD</div>
+                                        John Davidson
+                                    </div>
+                                </td>
+                                <td>Air Monarch Sport</td>
+                                <td>Jun 20, 2026</td>
+                                <td>$249</td>
+                                <td><span class="status confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">SM</div>
+                                        Sarah Mitchell
+                                    </div>
+                                </td>
+                                <td>Veloce Racer Gold</td>
+                                <td>Jun 19, 2026</td>
+                                <td>$320</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">RK</div>
+                                        Robert King
+                                    </div>
+                                </td>
+                                <td>Elite Walk Leather</td>
+                                <td>Jun 18, 2026</td>
+                                <td>$189</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">EW</div>
+                                        Emily Watson
+                                    </div>
+                                </td>
+                                <td>Trailblazer Runner</td>
+                                <td>Jun 17, 2026</td>
+                                <td>$160</td>
+                                <td><span class="status cancelled">Cancelled</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        PAGE: VEHICLES
+        ============================================================ -->
+        <section class="page" id="page-vehicles">
+            <div class="page-header">
+                <h2>Shoe Management</h2>
+                <div class="actions">
+                    <button class="btn btn-gold btn-sm" data-redirect="404"><i class="fas fa-plus"></i> Add Shoe</button>
+                    <button class="btn btn-outline btn-sm" data-redirect="404"><i class="fas fa-download"></i> Export</button>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="custom-dropdown" data-placeholder="All Categories">
+                    <div class="dropdown-selected">
+                        <span class="selected-text placeholder">All Categories</span>
+                        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="option active" data-value="all">All Categories</div>
+                        <div class="option" data-value="luxury">Luxury</div>
+                        <div class="option" data-value="sports">Sports</div>
+                        <div class="option" data-value="electric">Lifestyle</div>
+                        <div class="option" data-value="suv">Running</div>
+                        <div class="option" data-value="economy">Casual</div>
+                    </div>
+                </div>
+
+                <div class="custom-dropdown" data-placeholder="All Status">
+                    <div class="dropdown-selected">
+                        <span class="selected-text placeholder">All Status</span>
+                        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="option active" data-value="all">All Status</div>
+                        <div class="option" data-value="available">Available</div>
+                        <div class="option" data-value="rented">Ordered</div>
+                        <div class="option" data-value="maintenance">Out of Stock</div>
+                    </div>
+                </div>
+
+                <input type="text" placeholder="Search shoes..." />
+            </div>
+
+            <div class="vehicles-grid">
+                <div class="vehicle-card">
+                    <div class="vehicle-img">
+                        <img src="./assets/admin-stat-1.webp"
+                            alt="Veloce Racer Gold" loading="lazy" />
+                    </div>
+                    <div class="vehicle-info">
+                        <div class="name">Veloce Racer Gold</div>
+                        <div class="price">$320 <span>/ pair</span></div>
+                        <div class="specs">
+                            <span><i class="fas fa-cloud"></i> Ultra Cushion</span>
+                            <span><i class="fas fa-shoe-prints"></i> Adaptive Fit</span>
+                            <span><i class="fas fa-leaf"></i> Eco-Knit</span>
+                        </div>
+                        <span class="status-badge available">Available</span>
+                        <div class="actions-row">
+                            <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vehicle-card">
+                    <div class="vehicle-img">
+                        <img src="./assets/admin-stat-2.webp"
+                            alt="Air Monarch Sport" loading="lazy" />
+                    </div>
+                    <div class="vehicle-info">
+                        <div class="name">Air Monarch Sport</div>
+                        <div class="price">$249 <span>/ pair</span></div>
+                        <div class="specs">
+                            <span><i class="fas fa-cloud"></i> Lightweight</span>
+                            <span><i class="fas fa-shoe-prints"></i> Performance</span>
+                            <span><i class="fas fa-leaf"></i> Recycled Mesh</span>
+                        </div>
+                        <span class="status-badge rented">Ordered</span>
+                        <div class="actions-row">
+                            <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vehicle-card">
+                    <div class="vehicle-img">
+                        <img src="./assets/admin-stat-3.webp"
+                            alt="Elite Walk Leather" loading="lazy" />
+                    </div>
+                    <div class="vehicle-info">
+                        <div class="name">Elite Walk Leather</div>
+                        <div class="price">$189 <span>/ pair</span></div>
+                        <div class="specs">
+                            <span><i class="fas fa-cloud"></i> Max Stability</span>
+                            <span><i class="fas fa-shoe-prints"></i> Orthotic Insole</span>
+                            <span><i class="fas fa-leaf"></i> Full Grain</span>
+                        </div>
+                        <span class="status-badge available">Available</span>
+                        <div class="actions-row">
+                            <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vehicle-card">
+                    <div class="vehicle-img">
+                        <img src="./assets/admin-stat-4.webp"
+                            alt="Trailblazer Runner" loading="lazy" />
+                    </div>
+                    <div class="vehicle-info">
+                        <div class="name">Trailblazer Runner</div>
+                        <div class="price">$160 <span>/ pair</span></div>
+                        <div class="specs">
+                            <span><i class="fas fa-cloud"></i> Responsive Zoom</span>
+                            <span><i class="fas fa-shoe-prints"></i> Ankle Support</span>
+                            <span><i class="fas fa-leaf"></i> Carbon Fiber</span>
+                        </div>
+                        <span class="status-badge maintenance">Out of Stock</span>
+                        <div class="actions-row">
+                            <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        PAGE: BOOKINGS
+        ============================================================ -->
+        <section class="page" id="page-bookings">
+            <div class="page-header">
+                <h2>Order Management</h2>
+                <div class="actions">
+                    <button class="btn btn-gold btn-sm" data-redirect="404"><i class="fas fa-plus"></i> New Order</button>
+                    <button class="btn btn-outline btn-sm" data-redirect="404"><i class="fas fa-download"></i> Export</button>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="custom-dropdown" data-placeholder="All Status">
+                    <div class="dropdown-selected">
+                        <span class="selected-text placeholder">All Status</span>
+                        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="option active" data-value="all">All Status</div>
+                        <div class="option" data-value="confirmed">Confirmed</div>
+                        <div class="option" data-value="pending">Pending</div>
+                        <div class="option" data-value="completed">Completed</div>
+                        <div class="option" data-value="cancelled">Cancelled</div>
+                    </div>
+                </div>
+
+                <input type="text" placeholder="Search orders..." />
+                <input type="date" placeholder="Date" />
+            </div>
+
+            <div class="dashboard-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>User</th>
+                                <th>Style</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#OD-1024</td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">JD</div>
+                                        John Davidson
+                                    </div>
+                                </td>
+                                <td>Air Monarch Sport</td>
+                                <td>Jun 20, 2026</td>
+                                <td>$249</td>
+                                <td><span class="status confirmed">Confirmed</span></td>
+                                <td>
+                                    <button class="btn-icon"
+                                        style="padding:2px 8px;border:1px solid var(--gray-200);border-radius:4px;background:transparent;color:var(--text-light);cursor:pointer;font-size:0.7rem;"
+                                        data-redirect="404">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#OD-1023</td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">SM</div>
+                                        Sarah Mitchell
+                                    </div>
+                                </td>
+                                <td>Veloce Racer Gold</td>
+                                <td>Jun 19, 2026</td>
+                                <td>$320</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-icon"
+                                        style="padding:2px 8px;border:1px solid var(--gray-200);border-radius:4px;background:transparent;color:var(--text-light);cursor:pointer;font-size:0.7rem;"
+                                        data-redirect="404">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#OD-1022</td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">RK</div>
+                                        Robert King
+                                    </div>
+                                </td>
+                                <td>Elite Walk Leather</td>
+                                <td>Jun 18, 2026</td>
+                                <td>$189</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td>
+                                    <button class="btn-icon"
+                                        style="padding:2px 8px;border:1px solid var(--gray-200);border-radius:4px;background:transparent;color:var(--text-light);cursor:pointer;font-size:0.7rem;"
+                                        data-redirect="404">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#OD-1021</td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">EW</div>
+                                        Emily Watson
+                                    </div>
+                                </td>
+                                <td>Trailblazer Runner</td>
+                                <td>Jun 17, 2026</td>
+                                <td>$160</td>
+                                <td><span class="status cancelled">Cancelled</span></td>
+                                <td>
+                                    <button class="btn-icon"
+                                        style="padding:2px 8px;border:1px solid var(--gray-200);border-radius:4px;background:transparent;color:var(--text-light);cursor:pointer;font-size:0.7rem;"
+                                        data-redirect="404">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#OD-1020</td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="avatar-sm">MC</div>
+                                        Michael Chen
+                                    </div>
+                                </td>
+                                <td>Quantum Glide Knit</td>
+                                <td>Jun 16, 2026</td>
+                                <td>$280</td>
+                                <td><span class="status confirmed">Confirmed</span></td>
+                                <td>
+                                    <button class="btn-icon"
+                                        style="padding:2px 8px;border:1px solid var(--gray-200);border-radius:4px;background:transparent;color:var(--text-light);cursor:pointer;font-size:0.7rem;"
+                                        data-redirect="404">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        PAGE: USERS
+        ============================================================ -->
+        <section class="page" id="page-users">
+            <div class="page-header">
+                <h2>User Management</h2>
+                <div class="actions">
+                    <button class="btn btn-gold btn-sm" data-redirect="404"><i class="fas fa-user-plus"></i> Add User</button>
+                    <button class="btn btn-outline btn-sm" data-redirect="404"><i class="fas fa-download"></i> Export</button>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="custom-dropdown" data-placeholder="All Roles">
+                    <div class="dropdown-selected">
+                        <span class="selected-text placeholder">All Roles</span>
+                        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="option active" data-value="all">All Roles</div>
+                        <div class="option" data-value="admin">Admin</div>
+                        <div class="option" data-value="user">User</div>
+                    </div>
+                </div>
+
+                <input type="text" placeholder="Search users..." />
+            </div>
+
+            <div class="users-grid">
+                <div class="user-card">
+                    <div class="avatar-lg">JD</div>
+                    <div class="name">John Davidson</div>
+                    <div class="email">john.d@example.com</div>
+                    <span class="role-badge user">User</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+
+                <div class="user-card">
+                    <div class="avatar-lg">SM</div>
+                    <div class="name">Sarah Mitchell</div>
+                    <div class="email">sarah.m@example.com</div>
+                    <span class="role-badge admin">Admin</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+
+                <div class="user-card">
+                    <div class="avatar-lg">RK</div>
+                    <div class="name">Robert King</div>
+                    <div class="email">robert.k@example.com</div>
+                    <span class="role-badge user">User</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+
+                <div class="user-card">
+                    <div class="avatar-lg">EW</div>
+                    <div class="name">Emily Watson</div>
+                    <div class="email">emily.w@example.com</div>
+                    <span class="role-badge user">User</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+
+                <div class="user-card">
+                    <div class="avatar-lg">MC</div>
+                    <div class="name">Michael Chen</div>
+                    <div class="email">michael.c@example.com</div>
+                    <span class="role-badge admin">Admin</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+
+                <div class="user-card">
+                    <div class="avatar-lg">JL</div>
+                    <div class="name">Jennifer Lopez</div>
+                    <div class="email">jennifer.l@example.com</div>
+                    <span class="role-badge user">User</span>
+                    <div class="actions-row">
+                        <button class="btn-icon" data-redirect="404"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn-icon danger" data-redirect="404"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. SIDEBAR TOGGLE
+        // ============================================================
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const hamburger = document.getElementById('hamburger');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebarFn() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFn);
+        overlay.addEventListener('click', closeSidebarFn);
+
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                closeSidebarFn();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                closeSidebarFn();
+            }
+        });
+
+        // ============================================================
+        // 2. PAGE NAVIGATION
+        // ============================================================
+        const navLinks = document.querySelectorAll('.sidebar .nav a[data-page]');
+        const pages = document.querySelectorAll('.page');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                pages.forEach(p => p.classList.remove('active'));
+
+                const target = this.dataset.page;
+                const targetPage = document.getElementById('page-' + target);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+
+                const pageTitles = {
+                    dashboard: 'Dashboard',
+                    vehicles: 'Vehicle Management',
+                    bookings: 'Booking Management',
+                    users: 'User Management'
+                };
+                document.getElementById('pageTitle').textContent = pageTitles[target] || 'Dashboard';
+
+                if (window.innerWidth <= 768) {
+                    closeSidebarFn();
+                }
+            });
+        });
+
+        // ============================================================
+        // 3. LOAD USER DATA
+        // ============================================================
+        function loadUserData() {
+            const userName = sessionStorage.getItem('userName') || 'Admin';
+            const displayName = userName.charAt(0).toUpperCase() + userName.slice(1);
+            const initial = userName.charAt(0).toUpperCase();
+
+            document.getElementById('sidebarName').textContent = displayName;
+            document.getElementById('sidebarAvatar').textContent = initial;
+            document.getElementById('headerName').textContent = displayName;
+            document.getElementById('headerAvatar').textContent = initial;
+            document.getElementById('greetingName').textContent = displayName;
+        }
+
+        loadUserData();
+
+        // ============================================================
+        // 4. CHART.JS
+        // ============================================================
+        const ctx = document.getElementById('bookingChart').getContext('2d');
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(0, 'rgba(201, 168, 76, 0.25)');
+        gradient.addColorStop(1, 'rgba(201, 168, 76, 0.01)');
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Bookings',
+                    data: [8, 12, 9, 15, 18, 22, 14],
+                    borderColor: '#c9a84c',
+                    backgroundColor: gradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#c9a84c',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.04)',
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            font: {
+                                size: 10,
+                                family: 'Inter',
+                            },
+                            color: '#a8a09a',
+                            maxTicksLimit: 6,
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            font: {
+                                size: 10,
+                                family: 'Inter',
+                            },
+                            color: '#a8a09a',
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+            }
+        });
+
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function () {
+                chart.resize();
+            }, 200);
+        });
+
+        // ============================================================
+        // 5. CUSTOM DROPDOWN INITIALIZATION
+        // ============================================================
+        document.querySelectorAll('.custom-dropdown').forEach(function (dropdown) {
+            const selected = dropdown.querySelector('.dropdown-selected');
+            const options = dropdown.querySelector('.dropdown-options');
+            const selectedText = selected.querySelector('.selected-text');
+            const placeholder = dropdown.dataset.placeholder || 'Select option';
+
+            selected.addEventListener('click', function (e) {
+                e.stopPropagation();
+                document.querySelectorAll('.dropdown-options').forEach(function (opt) {
+                    if (opt !== options) {
+                        opt.classList.remove('open');
+                        opt.parentElement.querySelector('.arrow').classList.remove('open');
+                    }
+                });
+                options.classList.toggle('open');
+                this.querySelector('.arrow').classList.toggle('open');
+            });
+
+            options.querySelectorAll('.option').forEach(function (option) {
+                option.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const value = this.dataset.value;
+                    const text = this.textContent.trim();
+
+                    selectedText.textContent = text;
+                    selectedText.classList.remove('placeholder');
+
+                    options.querySelectorAll('.option').forEach(function (opt) {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    options.classList.remove('open');
+                    selected.querySelector('.arrow').classList.remove('open');
+                });
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target)) {
+                    options.classList.remove('open');
+                    selected.querySelector('.arrow').classList.remove('open');
+                }
+            });
+        });
+
+        // ============================================================
+        // 6. REDIRECT ALL BUTTONS (except sidebar + logout) to 404.html
+        // ============================================================
+        document.querySelectorAll('[data-redirect="404"]').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = '404.html';
+            });
+        });
+
+        // Also catch any <a> with href that are not sidebar or logout and not internal navigation
+        document.querySelectorAll('a:not(.sidebar a):not(.logout-btn a)').forEach(function (a) {
+            // Skip if it has data-page attribute (internal navigation)
+            if (a.hasAttribute('data-page')) return;
+            // Skip if it already has data-redirect (already handled)
+            if (a.hasAttribute('data-redirect')) return;
+            // Skip if it's a mailto or tel
+            if (a.href && (a.href.startsWith('mailto:') || a.href.startsWith('tel:'))) return;
+            // Skip if it's a hash link (like #)
+            if (a.href && a.href.endsWith('#')) return;
+            // For all other links, add click handler to redirect to 404
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = '404.html';
+            });
+        });
+
+        // Also handle buttons that are not links
+        document.querySelectorAll('.btn, .btn-icon, .btn-gold, .btn-outline, .btn-sm').forEach(function (btn) {
+            // Skip if already has data-redirect or is inside sidebar/header navigation
+            if (btn.closest('.sidebar') || btn.closest('.header') || btn.closest('.nav')) return;
+            if (btn.hasAttribute('data-redirect')) return;
+            // For buttons that are not links, add click handler
+            if (btn.tagName === 'BUTTON' || (btn.tagName === 'A' && !btn.href)) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = '404.html';
+                });
+            }
+        });
+
+        // Ensure notification and admin-avatar (which are not <a>) also redirect
+        document.querySelectorAll('.notification, .admin-avatar').forEach(function (el) {
+            if (el.closest('.sidebar') || el.closest('.header') === null) return;
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = '404.html';
+            });
+        });
+
+        console.log('✅ Admin dashboard — logo links to index, notification & avatar redirect to 404.');
+    </script>
+
+</body>
+
+</html>

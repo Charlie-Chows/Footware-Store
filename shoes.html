@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Our Collection | Stackly Premium Footwear Store</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- GSAP + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrambleTextPlugin.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           LOGO STYLES — GOLD THEME
+           ============================================================ */
+        .logo img,
+        .logo-sm img,
+        .footer-brand .footer-logo img {
+            width: auto;
+            display: block;
+            border-radius: 8px;
+            transition: filter 0.3s ease, transform 0.3s ease;
+            height: 45px;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .logo img:hover,
+        .logo-sm img:hover,
+        .footer-brand .footer-logo img:hover {
+            filter: brightness(0) saturate(100%) invert(75%) sepia(80%) saturate(1100%) hue-rotate(345deg) brightness(105%) contrast(105%);
+            transform: scale(1.04);
+        }
+
+        .footer-brand .footer-logo img {
+            height: 45px;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .navbar.scrolled .logo img {
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        @media (max-width: 992px) {
+            .logo img {
+                height: 60px;
+            }
+            .logo-sm img {
+                height: 50px;
+            }
+            .footer-brand .footer-logo img {
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                height: 80px;
+            }
+            .logo-sm img {
+                height: 50px;
+            }
+            .footer-brand .footer-logo img {
+                height: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
+            .logo-sm img {
+                height: 32px;
+            }
+            .footer-brand .footer-logo img {
+                height: 60px;
+            }
+        }
+
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        :root {
+            --cream: #FFF8EB;
+            --white: #ffffff;
+            --dark: #2C1F14;
+            --gold: #FF9F1C;
+            --gold-light: #FFC06E;
+            --gold-glow: rgba(255, 159, 28, 0.15);
+            --gray-100: #FFF1D6;
+            --gray-200: #F0E3CB;
+            --gray-300: #DCCFB7;
+            --gray-400: #9C8E79;
+            --text: #2C1F14;
+            --text-light: #6A5E53;
+            --shadow-sm: 0 2px 12px rgba(44, 31, 20, 0.03);
+            --shadow-md: 0 8px 32px rgba(44, 31, 20, 0.06);
+            --shadow-lg: 0 16px 56px rgba(44, 31, 20, 0.08);
+            --shadow-xl: 0 24px 80px rgba(44, 31, 20, 0.10);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            font-family: var(--font);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            box-shadow: 0 8px 28px var(--gold-glow);
+        }
+        .btn-gold:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 14px 44px var(--gold-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--gray-300);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--text);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-white:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-sm {
+            padding: 10px 24px;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+           NAVBAR
+           ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 16px 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(250, 248, 245, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .navbar.scrolled {
+            background: rgba(250, 248, 245, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+            padding: 10px 0;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), #b8942e);
+            transition: width 0.35s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .btn-login-car {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px 10px 18px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 24px var(--gold-glow);
+            font-family: var(--font);
+        }
+        .btn-login-car::before {
+            content: '👟';
+            font-size: 1.1rem;
+            margin-right: 2px;
+        }
+        .btn-login-car:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 12px 36px var(--gold-glow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+            z-index: 10000;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text);
+            border-radius: 4px;
+            transition: all 0.3s;
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 40px;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-menu-overlay ul {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .mobile-menu-overlay ul a {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .mobile-menu-overlay ul a:hover,
+        .mobile-menu-overlay ul a.active {
+            color: var(--gold);
+            transform: scale(1.05);
+        }
+        .mobile-menu-overlay .mobile-login-btn {
+            margin-top: 8px;
+        }
+        .mobile-menu-overlay .mobile-login-btn .btn-login-car {
+            font-size: 1rem;
+            padding: 14px 36px;
+        }
+        .mobile-menu-overlay .close-mobile-menu {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--gray-200);
+            border-radius: 50%;
+            color: var(--text);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 12px 16px;
+            z-index: 9999;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto !important;
+        }
+        .mobile-menu-overlay .close-mobile-menu:hover {
+            transform: rotate(90deg);
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        .mobile-menu-overlay .close-mobile-menu i {
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           SECTION BASE
+           ============================================================ */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-title h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text);
+        }
+        .section-title h2 .highlight {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title p {
+            color: var(--text-light);
+            max-width: 540px;
+            margin: 12px auto 0;
+            font-size: 1.05rem;
+        }
+
+        .section-bg-white {
+            background: var(--white);
+        }
+        .section-bg-cream {
+            background: var(--cream);
+        }
+
+        /* ============================================================
+           CARS HERO
+           ============================================================ */
+        .cars-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 140px 0 80px;
+            background: linear-gradient(160deg, #faf8f5 0%, #f0ede8 100%);
+        }
+        .cars-hero .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(135deg, rgba(247, 243, 238, 0.85) 0%, rgba(240, 237, 232, 0.70) 100%);
+        }
+        .cars-hero .hero-bg-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.06;
+            background-image:
+                radial-gradient(circle at 20% 30%, var(--gold) 1px, transparent 1px),
+                radial-gradient(circle at 70% 80%, var(--gold) 1px, transparent 1px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            pointer-events: none;
+        }
+        .cars-hero .hero-orbs {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .cars-hero .hero-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            will-change: transform;
+        }
+        .cars-hero .hero-orbs .orb-1 {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(201, 168, 124, 0.3) 0%, transparent 70%);
+        }
+        .cars-hero .hero-orbs .orb-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            left: -80px;
+            background: radial-gradient(circle, rgba(212, 181, 160, 0.25) 0%, transparent 70%);
+        }
+        .cars-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .cars-hero .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 18px 6px 12px;
+            border-radius: 40px;
+            background: rgba(201, 168, 76, 0.08);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        .cars-hero .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(1.8);
+            }
+        }
+        .cars-hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.06;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            color: var(--text);
+        }
+        .cars-hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .cars-hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 0;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .cars-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .cars-hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* ============================================================
+           FILTER TABS
+           ============================================================ */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+        .filter-tab {
+            padding: 10px 28px;
+            border-radius: 50px;
+            border: 1.5px solid var(--gray-200);
+            background: var(--white);
+            color: var(--text-light);
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            transform: scale(1);
+        }
+        .filter-tab:hover {
+            border-color: var(--gold);
+            color: var(--text);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: 0 4px 20px var(--gold-glow);
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           CARS GRID — ENHANCED WITH FLOATING
+           ============================================================ */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .car-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: translateY(40px);
+            perspective: 800px;
+            transform-style: preserve-3d;
+            /* floating animation will be applied via JS/GSAP */
+        }
+        .car-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .car-card:hover {
+            transform: translateY(-10px) scale(1.01) !important;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-lg);
+        }
+        .car-card .car-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background: var(--gray-100);
+        }
+        .car-card .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease, filter 0.5s ease;
+        }
+        .car-card:hover .car-image img {
+            transform: scale(1.08);
+            filter: brightness(1.04);
+        }
+        /* Shine overlay */
+        .car-card .car-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.8s ease;
+            pointer-events: none;
+        }
+        .car-card:hover .car-image::after {
+            left: 150%;
+        }
+        .car-card .car-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-light);
+        }
+        .car-card .car-badge.luxury {
+            color: var(--gold);
+            border-color: var(--gold-light);
+        }
+        .car-card .car-badge.sports {
+            color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+        .car-card .car-badge.electric {
+            color: #0891b2;
+            border-color: rgba(8, 145, 178, 0.2);
+        }
+        .car-card .car-badge.suv {
+            color: #059669;
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+        .car-card .car-badge.economy {
+            color: #6b7280;
+            border-color: rgba(107, 114, 128, 0.2);
+        }
+        .car-card .car-info {
+            padding: 22px 24px 24px;
+        }
+        .car-card .car-info .car-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 2px;
+            transition: color 0.3s;
+        }
+        .car-card:hover .car-info .car-name {
+            color: var(--gold);
+        }
+        .car-card .car-info .car-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .car-card .car-info .car-price span {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+        .car-card .car-info .car-specs {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .car-card .car-info .car-specs i {
+            color: var(--gold);
+            margin-right: 4px;
+            width: 14px;
+            text-align: center;
+        }
+        .car-card .car-info .car-description {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .car-card .car-info .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        .car-card.hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .cars-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+            .car-card .car-image {
+                height: 180px;
+            }
+        }
+
+        /* ============================================================
+           NEW SECTIONS: Featured Collections, Craftsmanship, Sustainability
+           ============================================================ */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .featured-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            padding: 30px 24px 24px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .featured-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .featured-item:hover {
+            transform: translateY(-8px) !important;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-lg);
+        }
+        .featured-item .icon-wrap {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+            transition: transform 0.4s ease;
+        }
+        .featured-item:hover .icon-wrap {
+            transform: scale(1.15) rotate(4deg);
+        }
+        .featured-item h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .featured-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .featured-item .learn-more {
+            display: inline-block;
+            margin-top: 14px;
+            font-weight: 600;
+            color: var(--gold);
+            transition: all 0.3s;
+        }
+        .featured-item .learn-more i {
+            transition: transform 0.3s;
+        }
+        .featured-item:hover .learn-more i {
+            transform: translateX(6px);
+        }
+
+        .craft-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .craft-grid .craft-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .craft-grid .craft-text h2 .highlight {
+            color: var(--gold);
+        }
+        .craft-grid .craft-text p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .craft-grid .craft-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .craft-grid .craft-stats .stat {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-200);
+            text-align: center;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        .craft-grid .craft-stats .stat.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .craft-grid .craft-stats .stat:hover {
+            border-color: var(--gold);
+            transform: scale(1.03) !important;
+            box-shadow: var(--shadow-md);
+        }
+        .craft-grid .craft-stats .stat .number {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .craft-grid .craft-stats .stat .label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .sustainability-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .sustainability-item {
+            background: var(--white);
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .sustainability-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .sustainability-item:hover {
+            transform: translateY(-8px) !important;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-lg);
+        }
+        .sustainability-item .icon {
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+            transition: transform 0.4s ease;
+        }
+        .sustainability-item:hover .icon {
+            transform: rotate(-6deg) scale(1.1);
+        }
+        .sustainability-item h4 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .sustainability-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 992px) {
+            .featured-grid,
+            .sustainability-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .craft-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .craft-grid .craft-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .featured-grid,
+            .sustainability-grid {
+                grid-template-columns: 1fr;
+            }
+            .craft-grid .craft-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           CTA
+           ============================================================ */
+        .cta-section {
+            background: linear-gradient(160deg, var(--cream), #f0ede8);
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .cta-section h2 .highlight {
+            color: var(--gold);
+        }
+        .cta-section p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 28px;
+            font-size: 1.05rem;
+        }
+        .cta-section .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ============================================================
+           SIZING GUIDE SECTION
+           ============================================================ */
+        .sizing-container {
+            max-width: 900px;
+            margin: 40px auto 0;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .sizing-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sizing-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .sizing-tab {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: 1px solid var(--gray-200);
+            background: var(--cream);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sizing-tab.active {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sizing-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .sizing-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .sizing-table th {
+            background: var(--cream);
+            padding: 14px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .sizing-table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.92rem;
+            color: var(--text-light);
+        }
+
+        .sizing-table tr:hover td {
+            background: rgba(255, 159, 28, 0.03);
+            color: var(--text);
+        }
+
+        /* ============================================================
+           SOURCING CONCIERGE
+           ============================================================ */
+        .sourcing-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .sourcing-info {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        .sourcing-info.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .sourcing-form {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        .sourcing-form.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sourcing-info h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .sourcing-info p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .sourcing-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sourcing-form input,
+        .sourcing-form select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-300);
+            background: var(--cream);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+
+        .sourcing-form input:focus,
+        .sourcing-form select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .sourcing-box {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                padding: 28px;
+            }
+            .sourcing-info {
+                transform: translateX(0px);
+            }
+            .sourcing-form {
+                transform: translateX(0px);
+            }
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            padding-top: 0;
+        }
+        .footer-shape {
+            position: relative;
+            width: 100%;
+            height: 70px;
+            background: var(--white);
+            overflow: hidden;
+            margin-bottom: -2px;
+        }
+        .footer-shape svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: block;
+        }
+        .footer-shape svg path {
+            fill: var(--cream);
+        }
+        .footer-content {
+            background: var(--cream);
+            padding: 50px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.02) 15%,
+                    rgba(0, 0, 0, 0.6) 35%,
+                    rgba(0, 0, 0, 0.9) 50%,
+                    rgba(0, 0, 0, 0.6) 65%,
+                    rgba(0, 0, 0, 0.02) 85%,
+                    transparent 100%);
+            opacity: 0.7;
+            z-index: 1;
+            animation: blackGlowMove 4s ease-in-out infinite;
+            filter: blur(1px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+        .footer-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 400%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.01) 20%,
+                    rgba(0, 0, 0, 0.3) 40%,
+                    rgba(0, 0, 0, 0.5) 50%,
+                    rgba(0, 0, 0, 0.3) 60%,
+                    rgba(0, 0, 0, 0.01) 80%,
+                    transparent 100%);
+            opacity: 0.4;
+            z-index: 1;
+            animation: blackGlowMove 5.5s ease-in-out infinite reverse;
+            filter: blur(3px);
+        }
+        @keyframes blackGlowMove {
+            0% {
+                transform: translateX(0);
+                opacity: 0.4;
+            }
+            25% {
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateX(33.33%);
+                opacity: 0.4;
+            }
+            75% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateX(66.66%);
+                opacity: 0.4;
+            }
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 2;
+        }
+        .footer-brand .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+        .footer-brand p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            max-width: 320px;
+            margin: 10px 0 16px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-social a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 50%;
+        }
+        .footer-social a:hover {
+            transform: translateY(-4px) scale(1.08);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+        .footer-social a:hover::before {
+            opacity: 1;
+        }
+        .footer-social a i {
+            position: relative;
+            z-index: 1;
+        }
+        .footer-col h4 {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+            border-radius: 2px;
+        }
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .footer-col ul a {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            display: inline-block;
+            position: relative;
+            padding-left: 0;
+        }
+        .footer-col ul a::before {
+            content: '—';
+            opacity: 0;
+            margin-right: 0;
+            transition: all 0.3s;
+            color: rgba(0, 0, 0, 0.4);
+        }
+        .footer-col ul a:hover {
+            color: var(--gold);
+            padding-left: 20px;
+        }
+        .footer-col ul a:hover::before {
+            opacity: 1;
+            margin-right: 8px;
+        }
+        .footer-bottom {
+            border-top: 1px solid var(--gray-200);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: var(--gray-400);
+            position: relative;
+            z-index: 2;
+        }
+        .footer-bottom .footer-heart {
+            color: var(--gold);
+            display: inline-block;
+            animation: heartBeat 1.8s ease-in-out infinite;
+        }
+        @keyframes heartBeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.2);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.15);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+        .footer-bottom .legal-links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-bottom .legal-links a {
+            color: var(--gray-400);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .footer-bottom .legal-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.5);
+            transition: width 0.3s;
+        }
+        .footer-bottom .legal-links a:hover {
+            color: var(--gold);
+        }
+        .footer-bottom .legal-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ============================================================
+           BACK TO TOP
+           ============================================================ */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px var(--gold-glow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-top:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content::before {
+                height: 2px;
+                opacity: 0.5;
+                animation-duration: 3.5s;
+            }
+            .footer-content::after {
+                display: none;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-brand p {
+                max-width: 100%;
+            }
+            .footer-social {
+                justify-content: center;
+            }
+            .footer-col h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .footer-col ul a::before {
+                display: none;
+            }
+            .footer-col ul a:hover {
+                padding-left: 0;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .mobile-menu-overlay ul a {
+                font-size: 1.7rem;
+            }
+            .filter-tab {
+                padding: 8px 18px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+            .btn-login-car {
+                padding: 8px 16px 8px 12px;
+                font-size: 0.8rem;
+            }
+            .btn-login-car::before {
+                font-size: 0.9rem;
+            }
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            .mobile-menu-overlay ul a {
+                font-size: 1.4rem;
+            }
+            .footer-shape {
+                height: 40px;
+            }
+            .footer-shape svg {
+                height: 40px;
+            }
+            .filter-tabs {
+                gap: 6px;
+            }
+            .filter-tab {
+                padding: 6px 14px;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ----- animation helper: visible state for new sections ----- */
+        .featured-item.anim-visible,
+        .sustainability-item.anim-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo logo">
+                <img src="logo_trimmed.webp" alt="Stackly" loading="lazy" />
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="shoes.html" class="active">Shoes</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn-login-car">Login</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    FULL-SCREEN MOBILE MENU
+    ============================================================ -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="close-mobile-menu" id="closeMobileMenu" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="shoes.html" class="active">Shoes</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="mobile-login-btn">
+            <a href="login.html" class="btn-login-car">Login</a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CARS HERO
+    ============================================================ -->
+    <section class="cars-hero" id="carsHero">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" id="heroBadge">
+                    <span class="dot"></span>
+                    Our Collection
+                </div>
+                <h1 id="heroHeadline">
+                    Explore Our <span class="highlight">Collection</span>
+                </h1>
+                <p id="heroSubtext">
+                    From everyday comfort to high-performance running — discover the perfect
+                    pair for every step in our curated catalog of authentic premium shoes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CARS LISTING
+    ============================================================ -->
+    <section class="section-bg-white" id="carsListing">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Premium Collection</span>
+                <h2 id="carsTitle">Find Your <span class="highlight">Perfect Fit</span></h2>
+                <p id="carsSub">Filter by category to explore our diverse collection</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="luxury">Luxury</button>
+                <button class="filter-tab" data-filter="sports">Sports</button>
+                <button class="filter-tab" data-filter="electric">Lifestyle</button>
+                <button class="filter-tab" data-filter="suv">Running</button>
+                <button class="filter-tab" data-filter="economy">Casual</button>
+            </div>
+
+            <!-- Cars Grid -->
+            <div class="cars-grid" id="carsGrid"></div>
+
+            <!-- Load More / View All -->
+            <div style="text-align:center;margin-top:48px;">
+                <a href="contact.html" class="btn btn-outline">
+                    <i class="fas fa-headset"></i> Can't find your size? Contact us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SIZING GUIDE SECTION
+    ============================================================ -->
+    <section class="section-bg-cream" id="sizingGuide">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Fit Finder</span>
+                <h2 id="sizingTitle">Sneaker Sizing <span class="highlight">Guide</span></h2>
+                <p id="sizingSub">Find your perfect fit across global standards</p>
+            </div>
+            <div class="sizing-container" id="sizingContainer">
+                <div class="sizing-tabs">
+                    <button class="sizing-tab active" onclick="switchSizeTab('men')">Men's Sizes</button>
+                    <button class="sizing-tab" onclick="switchSizeTab('women')">Women's Sizes</button>
+                    <button class="sizing-tab" onclick="switchSizeTab('youth')">Youth / GS</button>
+                </div>
+                <div class="sizing-table-wrapper">
+                    <table class="sizing-table" id="sizingTable">
+                        <thead>
+                            <tr>
+                                <th>US Men</th>
+                                <th>UK Men</th>
+                                <th>EU Size</th>
+                                <th>CM (Length)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sizingBody">
+                            <tr><td>8.0</td><td>7.0</td><td>41.0</td><td>26.0 cm</td></tr>
+                            <tr><td>9.0</td><td>8.0</td><td>42.5</td><td>27.0 cm</td></tr>
+                            <tr><td>10.0</td><td>9.0</td><td>44.0</td><td>28.0 cm</td></tr>
+                            <tr><td>11.0</td><td>10.0</td><td>45.0</td><td>29.0 cm</td></tr>
+                            <tr><td>12.0</td><td>11.0</td><td>46.0</td><td>30.0 cm</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SOURCING CONCIERGE
+    ============================================================ -->
+    <section class="section-bg-cream" id="sourcing">
+        <div class="container">
+            <div class="sourcing-box" id="sourcingBox">
+                <div class="sourcing-info" id="sourcingInfo">
+                    <span class="section-label">Sourcing Concierge</span>
+                    <h3 id="sourcingTitle">Can't Find Your <span class="highlight">Size?</span></h3>
+                    <p id="sourcingSub">Our VIP concierge works directly with collectors globally to source sold-out sneakers and exclusive deadstock releases in your custom size.</p>
+                    <div style="font-size: 0.92rem; color: var(--text-light); margin-bottom: 20px;">
+                        <i class="fas fa-check-circle" style="color: var(--gold); margin-right: 8px;"></i> Guaranteed Authenticity Check<br/>
+                        <i class="fas fa-check-circle" style="color: var(--gold); margin-right: 8px;"></i> Sourced in 5–7 Days Globally
+                    </div>
+                </div>
+                <div class="sourcing-form" id="sourcingForm">
+                    <form onsubmit="event.preventDefault(); window.location.href='404.html';">
+                        <input type="text" placeholder="Sneaker Model (e.g. Quantum Glide)" required style="margin-bottom:12px;"/>
+                        <select required style="margin-bottom:12px;">
+                            <option value="">Select Desired Size...</option>
+                            <option value="us8">US Men 8.0 / Women 9.5</option>
+                            <option value="us9">US Men 9.0 / Women 10.5</option>
+                            <option value="us10">US Men 10.0 / Women 11.5</option>
+                            <option value="us11">US Men 11.0 / Women 12.5</option>
+                            <option value="other">Other / Custom</option>
+                        </select>
+                        <input type="email" placeholder="Your Email Address" required style="margin-bottom:16px;"/>
+                        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center;">
+                            <i class="fas fa-search-location"></i> Request Sourcing
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="footer-shape">
+            <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+                <path d="M0,20 C360,60 1080,0 1440,30 L1440,70 L0,70 Z"></path>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo logo">
+                            <img src="logo_trimmed.webp" alt="Stackly" loading="lazy" />
+                        </div>
+                        <p>Premium footwear experiences designed for those who appreciate authentic style. Luxury design, athletic performance, and exceptional service.</p>
+                        <div class="footer-social">
+                            <a href="404.html" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="404.html" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="shoes.html">Collection</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="404.html">FAQ</a></li>
+                            <li><a href="404.html">Booking Policy</a></li>
+                            <li><a href="404.html">Insurance</a></li>
+                            <li><a href="404.html">24/7 Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="404.html">Privacy Policy</a></li>
+                            <li><a href="404.html">Terms of Service</a></li>
+                            <li><a href="404.html">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 Stackly. Crafted with <span class="footer-heart"><i class="fas fa-heart"></i></span> for your active lifestyle.</span>
+                    <div class="legal-links">
+                        <a href="404.html">Privacy</a>
+                        <a href="404.html">Terms</a>
+                        <a href="404.html">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BACK TO TOP
+    ============================================================ -->
+    <button class="back-top" id="backTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================
+    GSAP + PLUGINS + SCRIPTS
+    ============================================================ -->
+    <script>
+        window.addEventListener('load', function () {
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ============================================================
+            // NAVBAR SCROLL
+            // ============================================================
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                navbar.classList.toggle('scrolled', window.scrollY > 40);
+            });
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const closeBtn = document.getElementById('closeMobileMenu');
+
+            function openMenu() {
+                overlay.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+            }
+
+            function closeMenu() {
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+
+            if (hamburger) {
+                hamburger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (overlay.classList.contains('active')) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    closeMenu();
+                });
+            }
+            if (overlay) {
+                overlay.addEventListener('click', function (e) {
+                    if (e.target === overlay) {
+                        closeMenu();
+                    }
+                });
+            }
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+            document.querySelectorAll('.mobile-menu-overlay ul a, .mobile-login-btn .btn-login-car').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    closeMenu();
+                });
+            });
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768 && overlay.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            // ============================================================
+            // BACK TO TOP
+            // ============================================================
+            const backTop = document.getElementById('backTop');
+            window.addEventListener('scroll', function () {
+                backTop.classList.toggle('show', window.scrollY > 500);
+            });
+            backTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ============================================================
+            // SPLIT TEXT — HERO HEADLINE
+            // ============================================================
+            try {
+                const heroHeadline = document.getElementById('heroHeadline');
+                if (heroHeadline && typeof SplitText !== 'undefined') {
+                    const heroSplit = new SplitText(heroHeadline, { type: 'chars', charsClass: 'char++' });
+                    gsap.from(heroSplit.chars, {
+                        duration: 1.4,
+                        y: 80,
+                        opacity: 0,
+                        rotationX: 40,
+                        stagger: 0.04,
+                        ease: 'power3.out',
+                        delay: 0.5
+                    });
+                }
+            } catch (e) { console.warn('SplitText hero headline error:', e); }
+
+            // ============================================================
+            // SPLIT TEXT — HERO SUBTEXT
+            // ============================================================
+            try {
+                const heroSubtext = document.getElementById('heroSubtext');
+                if (heroSubtext && typeof SplitText !== 'undefined') {
+                    const subSplit = new SplitText(heroSubtext, { type: 'words', wordsClass: 'word++' });
+                    gsap.from(subSplit.words, {
+                        duration: 1.2,
+                        y: 40,
+                        opacity: 0,
+                        stagger: 0.06,
+                        ease: 'power3.out',
+                        delay: 1.2
+                    });
+                }
+            } catch (e) { console.warn('SplitText hero subtext error:', e); }
+
+            // ============================================================
+            // SCRAMBLE TEXT — HERO BADGE
+            // ============================================================
+            try {
+                const badge = document.getElementById('heroBadge');
+                if (badge && typeof ScrambleTextPlugin !== 'undefined') {
+                    const originalBadge = badge.textContent.trim();
+                    gsap.to(badge, {
+                        duration: 2.5,
+                        scrambleText: {
+                            text: originalBadge,
+                            chars: 'upperCase',
+                            speed: 0.4,
+                            revealDelay: 0.3
+                        },
+                        ease: 'power2.out',
+                        delay: 0.3
+                    });
+                }
+            } catch (e) { console.warn('ScrambleText badge error:', e); }
+
+            // ============================================================
+            // SCROLL-TRIGGERED SPLIT TEXT — SECTION TITLES
+            // ============================================================
+            const titleIds = ['carsTitle', 'sizingTitle', 'sourcingTitle', 'ctaTitle'];
+            titleIds.forEach(function (id, index) {
+                try {
+                    const el = document.getElementById(id);
+                    if (!el || typeof SplitText === 'undefined') return;
+                    const split = new SplitText(el, { type: 'words', wordsClass: 'word++' });
+                    gsap.from(split.words, {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        },
+                        duration: 0.9,
+                        y: 50,
+                        opacity: 0,
+                        stagger: 0.05,
+                        ease: 'power3.out',
+                        delay: index * 0.05
+                    });
+                } catch (e) { console.warn('SplitText section title error for', id, e); }
+            });
+
+            // ============================================================
+            // SCRAMBLE TEXT — SECTION SUBTEXTS
+            // ============================================================
+            const subTexts = ['carsSub', 'sizingSub', 'sourcingSub', 'ctaSub'];
+            subTexts.forEach(function (id, i) {
+                try {
+                    const el = document.getElementById(id);
+                    if (!el || typeof ScrambleTextPlugin === 'undefined') return;
+                    const original = el.textContent;
+                    gsap.to(el, {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        },
+                        duration: 1.8,
+                        scrambleText: {
+                            text: original,
+                            chars: 'upperCase',
+                            speed: 0.25,
+                            revealDelay: 0.2 + i * 0.05
+                        },
+                        ease: 'power2.out',
+                        delay: 0.1 * i
+                    });
+                } catch (e) { console.warn('ScrambleText subtext error for', id, e); }
+            });
+
+            // ============================================================
+            // GSAP HERO ANIMATIONS
+            // ============================================================
+            const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            heroTL
+                .from('.cars-hero .hero-badge', { opacity: 0, y: 30, duration: 0.6, skewX: -4 }, 0.2);
+
+            // ============================================================
+            // CARS DATA
+            // ============================================================
+            const carsData = [{
+                name: 'Aero Max Runner',
+                category: 'sports',
+                price: 189,
+                cushion: 'High',
+                fit: 'Regular',
+                material: 'Mesh',
+                weight: '280g',
+                image: './assets/sneaker-red-airmax.webp',
+                description: 'Experience pure speed with the Aero Max Runner — featuring a lightweight breathable design and premium foam cushioning.'
+            }, {
+                name: 'Ultraboost Speed',
+                category: 'sports',
+                price: 220,
+                cushion: 'Max',
+                fit: 'Sock-like',
+                material: 'Primeknit',
+                weight: '290g',
+                image: './assets/sneaker-puma-white.webp',
+                description: 'The legendary Ultraboost Speed delivers maximum energy return and comfort with every stride.'
+            }, {
+                name: 'Royal Court Classic',
+                category: 'luxury',
+                price: 350,
+                cushion: 'Medium',
+                fit: 'Regular',
+                material: 'Leather',
+                weight: '340g',
+                image: './assets/sneaker-casual-tan.webp',
+                description: 'The pinnacle of minimal footwear design — the Royal Court Classic offers hand-stitched Italian leather refinement.'
+            }, {
+                name: 'Apex Carbon Flight',
+                category: 'sports',
+                price: 275,
+                cushion: 'Responsive',
+                fit: 'Snug',
+                material: 'Carbon Plate',
+                weight: '190g',
+                image: './assets/sneaker-nike-green.webp',
+                description: 'The Apex Carbon Flight features a propulsive carbon fiber plate to break your personal records in comfort.'
+            }, {
+                name: 'Vanguard Sport',
+                category: 'sports',
+                price: 195,
+                cushion: 'High',
+                fit: 'Comfort',
+                material: 'Engineered Mesh',
+                weight: '250g',
+                image: './assets/customizer-workshop.webp',
+                description: 'The Vanguard Sport combines advanced springy foam tech with a modern athletic silhouette.'
+            }, {
+                name: 'Monarch Luxury Suede',
+                category: 'luxury',
+                price: 310,
+                cushion: 'Plush',
+                fit: 'Regular',
+                material: 'Premium Suede',
+                weight: '320g',
+                image: './assets/sneaker-colorful-retro.webp',
+                description: 'Step out in premium craftsmanship. The Monarch Suede offers a plush fit for upscale street style.'
+            }, {
+                name: 'Stratus Lifestyle',
+                category: 'luxury',
+                price: 240,
+                cushion: 'Medium',
+                fit: 'Comfort',
+                material: 'Nappa Leather',
+                weight: '330g',
+                image: './assets/sneaker-adidas-yellow.webp',
+                description: 'Understated elegance meets day-long cushioning. Perfect for casual meetings and travels.'
+            }, {
+                name: 'Ignite Trainer V2',
+                category: 'sports',
+                price: 165,
+                cushion: 'Firm',
+                fit: 'Wide',
+                material: 'Mesh Upper',
+                weight: '275g',
+                image: './assets/sneaker-running-black.webp',
+                description: 'The Ignite Trainer V2 delivers signature lateral stability and responsive grip for intense workouts.'
+            }, {
+                name: 'Retro Wave Mid',
+                category: 'electric',
+                price: 160,
+                cushion: 'Plush',
+                fit: 'Mid Top',
+                material: 'Suede & Canvas',
+                weight: '380g',
+                image: 'https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&q=80&w=600',
+                description: 'The Retro Wave Mid redefines old-school basketball aesthetics with modern responsive cushioning.'
+            }, {
+                name: 'Urban Edge Platform',
+                category: 'electric',
+                price: 145,
+                cushion: 'High',
+                fit: 'Comfort',
+                material: 'Eco Canvas',
+                weight: '310g',
+                image: './assets/sneaker-colorful-retro.webp',
+                description: 'Make a bold statement. The Urban Edge Platform brings cloud-like comfort and street style together.'
+            }, {
+                name: 'Trail Blazer GTX',
+                category: 'suv',
+                price: 210,
+                cushion: 'High',
+                fit: 'Wide Fit',
+                material: 'Gore-Tex Mesh',
+                weight: '345g',
+                image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&q=80&w=600',
+                description: 'The Trail Blazer GTX offers ultimate weather-proof protection and lugged traction for all terrains.'
+            }, {
+                name: 'Cloudstratus Extreme',
+                category: 'suv',
+                price: 230,
+                cushion: 'Max Cloud',
+                fit: 'Regular',
+                material: 'TPU & Mesh',
+                weight: '310g',
+                image: './assets/sneaker-puma-white.webp',
+                description: 'Maximum Cloud cushioning for long-distance trail running and everyday active wear.'
+            }, {
+                name: 'Apex Ridge Runner',
+                category: 'suv',
+                price: 185,
+                cushion: 'Firm',
+                fit: 'Snug',
+                material: 'Ripstop Nylon',
+                weight: '290g',
+                image: './assets/sneaker-red-airmax.webp',
+                description: 'Tough ripstop construction and carbon guards make this the ultimate shoe for rugged mountain trails.'
+            }, {
+                name: 'Retro Low Canvas',
+                category: 'economy',
+                price: 65,
+                cushion: 'Basic',
+                fit: 'Low Profile',
+                material: '100% Canvas',
+                weight: '260g',
+                image: './assets/sneaker-adidas-yellow.webp',
+                description: 'The classic retro low silhouette — lightweight, breathable, and perfect for your daily commute.'
+            }, {
+                name: 'Street Classic Cupsole',
+                category: 'economy',
+                price: 85,
+                cushion: 'Medium',
+                fit: 'Regular',
+                material: 'Synthetic Suede',
+                weight: '310g',
+                image: './assets/sneaker-casual-tan.webp',
+                description: 'Timeless skater look with updated cupsole technology for superior board feel and comfort.'
+            }, {
+                name: 'Eco Breeze Slip-On',
+                category: 'electric',
+                price: 75,
+                cushion: 'Lightweight',
+                fit: 'Relaxed',
+                material: 'Organic Hemp',
+                weight: '190g',
+                image: './assets/sneaker-colorful-retro.webp',
+                description: 'A breathable slip-on shoe crafted entirely from organic materials, designed for warm summer days.'
+            }];
+
+            // ============================================================
+            // RENDER CARS WITH FLOATING ANIMATION
+            // ============================================================
+            const carsGrid = document.getElementById('carsGrid');
+            let currentFilter = 'all';
+
+            function renderCars(filter) {
+                const filtered = filter === 'all' ? carsData : carsData.filter(c => c.category === filter);
+                let html = '';
+                filtered.forEach((car, index) => {
+                    const badgeClass = car.category;
+                    const displayCategory = car.category === 'electric' ? 'Lifestyle' :
+                        car.category === 'suv' ? 'Running' :
+                        car.category === 'economy' ? 'Casual' :
+                        car.category.charAt(0).toUpperCase() + car.category.slice(1);
+                    html += `
+                        <div class="car-card" data-category="${car.category}" data-index="${index}">
+                            <div class="car-image">
+                                <img src="${car.image}" alt="${car.name}" loading="lazy" />
+                                <span class="car-badge ${badgeClass}">${displayCategory}</span>
+                            </div>
+                            <div class="car-info">
+                                <div class="car-name">${car.name}</div>
+                                <div class="car-price">$${car.price} <span>/ pair</span></div>
+                                <div class="car-specs">
+                                    <span><i class="fas fa-layer-group"></i> ${car.cushion}</span>
+                                    <span><i class="fas fa-shoe-prints"></i> ${car.fit}</span>
+                                    <span><i class="fas fa-gem"></i> ${car.material}</span>
+                                    <span><i class="fas fa-feather-alt"></i> ${car.weight}</span>
+                                </div>
+                                <div class="car-description">${car.description}</div>
+                                <a href="404.html" class="btn btn-gold">Shop Now <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    `;
+                });
+                carsGrid.innerHTML = html;
+
+                // Animate cards with SLIDE-IN + FLOATING
+                const cards = carsGrid.querySelectorAll('.car-card');
+                const directions = ['left', 'right', 'bottom', 'bottom', 'left', 'right'];
+
+                cards.forEach((card, i) => {
+                    const dir = directions[i % directions.length];
+                    let x = 0,
+                        y = 0;
+                    if (dir === 'left') x = -120;
+                    else if (dir === 'right') x = 120;
+                    else y = 80;
+
+                    // Set initial hidden state
+                    gsap.set(card, {
+                        x: x,
+                        y: y,
+                        opacity: 0,
+                        rotation: 0
+                    });
+
+                    // Slide in with stagger
+                    gsap.to(card, {
+                        x: 0,
+                        y: 0,
+                        opacity: 1,
+                        rotation: 0,
+                        duration: 0.9,
+                        delay: 0.07 * i,
+                        ease: 'power3.out',
+                        onComplete: function() {
+                            card.classList.add('visible');
+
+                            // Apply FLOATING ANIMATION (gentle up/down)
+                            const floatDur = 2.8 + Math.random() * 1.2;
+                            const floatDist = 10 + Math.random() * 8;
+                            const delayOffset = Math.random() * 1.5;
+
+                            gsap.to(card, {
+                                y: -floatDist,
+                                duration: floatDur,
+                                delay: delayOffset,
+                                ease: 'sine.inOut',
+                                yoyo: true,
+                                repeat: -1,
+                                overwrite: 'auto'
+                            });
+                        }
+                    });
+                });
+
+                // Update filter tabs
+                document.querySelectorAll('.filter-tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.filter === filter);
+                });
+            }
+
+            // Initial render
+            renderCars('all');
+
+            // Filter functionality
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    const filter = this.dataset.filter;
+                    currentFilter = filter;
+                    renderCars(filter);
+                });
+            });
+
+            // ============================================================
+            // 3D TILT EFFECT ON CAR CARDS (mouse move)
+            // ============================================================
+            document.addEventListener('mousemove', function(e) {
+                const cards = document.querySelectorAll('.car-card');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * 6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    if (x > -20 && x < rect.width + 20 && y > -20 && y < rect.height + 20) {
+                        gsap.to(card, {
+                            rotationX: -rotateX,
+                            rotationY: rotateY,
+                            transformPerspective: 800,
+                            duration: 0.5,
+                            ease: 'power2.out',
+                            overwrite: 'auto'
+                        });
+                    } else {
+                        gsap.to(card, {
+                            rotationX: 0,
+                            rotationY: 0,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            });
+
+            // ============================================================
+            // FEATURED COLLECTIONS — SLIDE + FLOAT
+            // ============================================================
+            const featuredItems = document.querySelectorAll('.featured-item');
+            featuredItems.forEach((item, i) => {
+                const dir = ['left', 'right', 'bottom'][i % 3];
+                let x = 0,
+                    y = 0;
+                if (dir === 'left') x = -100;
+                else if (dir === 'right') x = 100;
+                else y = 70;
+
+                gsap.set(item, { x: x, y: y, opacity: 0 });
+
+                gsap.to(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 92%',
+                        toggleActions: 'play none none none',
+                        once: true
+                    },
+                    x: 0,
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.9,
+                    delay: 0.1 * i,
+                    ease: 'power3.out',
+                    onComplete: function() {
+                        item.classList.add('visible');
+                        // Float after visible
+                        const floatDur = 2.6 + Math.random() * 1.4;
+                        const floatDist = 8 + Math.random() * 6;
+                        gsap.to(item, {
+                            y: -floatDist,
+                            duration: floatDur,
+                            delay: Math.random() * 1.5,
+                            ease: 'sine.inOut',
+                            yoyo: true,
+                            repeat: -1,
+                            overwrite: 'auto'
+                        });
+                    }
+                });
+            });
+
+            // ============================================================
+            // CRAFT STATS — SCALE POP WITH STAGGER
+            // ============================================================
+            const statItems = document.querySelectorAll('.craft-stats .stat');
+            statItems.forEach((stat, i) => {
+                gsap.set(stat, { scale: 0.6, opacity: 0 });
+                gsap.to(stat, {
+                    scrollTrigger: {
+                        trigger: stat,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none',
+                        once: true
+                    },
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.7,
+                    delay: 0.1 * i,
+                    ease: 'back.out(1.7)',
+                    onComplete: function() {
+                        stat.classList.add('visible');
+                        // Gentle float on stats
+                        gsap.to(stat, {
+                            y: -4,
+                            duration: 2.2 + Math.random() * 0.8,
+                            delay: Math.random() * 1,
+                            ease: 'sine.inOut',
+                            yoyo: true,
+                            repeat: -1,
+                            overwrite: 'auto'
+                        });
+                    }
+                });
+            });
+
+            // ============================================================
+            // SUSTAINABILITY ITEMS — SLIDE + FLOAT
+            // ============================================================
+            const sustainItems = document.querySelectorAll('.sustainability-item');
+            sustainItems.forEach((item, i) => {
+                const dir = ['left', 'right', 'bottom'][i % 3];
+                let x = 0,
+                    y = 0;
+                if (dir === 'left') x = -100;
+                else if (dir === 'right') x = 100;
+                else y = 70;
+
+                gsap.set(item, { x: x, y: y, opacity: 0 });
+
+                gsap.to(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 92%',
+                        toggleActions: 'play none none none',
+                        once: true
+                    },
+                    x: 0,
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.9,
+                    delay: 0.1 * i,
+                    ease: 'power3.out',
+                    onComplete: function() {
+                        item.classList.add('visible');
+                        const floatDur = 2.8 + Math.random() * 1.2;
+                        const floatDist = 8 + Math.random() * 6;
+                        gsap.to(item, {
+                            y: -floatDist,
+                            duration: floatDur,
+                            delay: Math.random() * 1.5,
+                            ease: 'sine.inOut',
+                            yoyo: true,
+                            repeat: -1,
+                            overwrite: 'auto'
+                        });
+                    }
+                });
+            });
+
+            // ============================================================
+            // SIZING GUIDE — SLIDE IN
+            // ============================================================
+            const sizingContainer = document.getElementById('sizingContainer');
+            gsap.set(sizingContainer, { opacity: 0, y: 50 });
+            gsap.to(sizingContainer, {
+                scrollTrigger: {
+                    trigger: '#sizingGuide',
+                    start: 'top 92%',
+                    toggleActions: 'play none none none',
+                    once: true
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                onComplete: function() {
+                    sizingContainer.classList.add('visible');
+                    // Gentle float on the container
+                    gsap.to(sizingContainer, {
+                        y: -6,
+                        duration: 3,
+                        delay: 0.5,
+                        ease: 'sine.inOut',
+                        yoyo: true,
+                        repeat: -1,
+                        overwrite: 'auto'
+                    });
+                }
+            });
+
+            // ============================================================
+            // SOURCING CONCIERGE — SLIDE IN
+            // ============================================================
+            const sourcingInfo = document.getElementById('sourcingInfo');
+            const sourcingForm = document.getElementById('sourcingForm');
+
+            gsap.set(sourcingInfo, { opacity: 0, x: -60 });
+            gsap.set(sourcingForm, { opacity: 0, x: 60 });
+
+            gsap.to(sourcingInfo, {
+                scrollTrigger: {
+                    trigger: '.sourcing-box',
+                    start: 'top 92%',
+                    toggleActions: 'play none none none',
+                    once: true
+                },
+                opacity: 1,
+                x: 0,
+                duration: 0.9,
+                ease: 'power3.out',
+                onComplete: function() {
+                    sourcingInfo.classList.add('visible');
+                }
+            });
+
+            gsap.to(sourcingForm, {
+                scrollTrigger: {
+                    trigger: '.sourcing-box',
+                    start: 'top 92%',
+                    toggleActions: 'play none none none',
+                    once: true
+                },
+                opacity: 1,
+                x: 0,
+                duration: 0.9,
+                delay: 0.15,
+                ease: 'power3.out',
+                onComplete: function() {
+                    sourcingForm.classList.add('visible');
+                }
+            });
+
+            // ============================================================
+            // CTA REVEAL
+            // ============================================================
+            gsap.from('.cta-section h2', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                scale: 0.95,
+                duration: 0.9,
+                ease: 'power3.out'
+            });
+            gsap.from('.cta-section p', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                delay: 0.15,
+                ease: 'power3.out'
+            });
+            gsap.from('.cta-section .btn-group .btn', {
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                delay: 0.3,
+                stagger: 0.12,
+                ease: 'power3.out'
+            });
+
+            // ============================================================
+            // SIZING TAB SWITCHER
+            // ============================================================
+            window.switchSizeTab = function(gender) {
+                const tabs = document.querySelectorAll('.sizing-tab');
+                const tbody = document.getElementById('sizingBody');
+                const headers = document.querySelectorAll('.sizing-table th');
+
+                tabs.forEach(tab => tab.classList.remove('active'));
+                event.target.classList.add('active');
+
+                let html = '';
+                if (gender === 'men') {
+                    headers[0].textContent = 'US Men';
+                    headers[1].textContent = 'UK Men';
+                    html = `
+                        <tr><td>8.0</td><td>7.0</td><td>41.0</td><td>26.0 cm</td></tr>
+                        <tr><td>9.0</td><td>8.0</td><td>42.5</td><td>27.0 cm</td></tr>
+                        <tr><td>10.0</td><td>9.0</td><td>44.0</td><td>28.0 cm</td></tr>
+                        <tr><td>11.0</td><td>10.0</td><td>45.0</td><td>29.0 cm</td></tr>
+                        <tr><td>12.0</td><td>11.0</td><td>46.0</td><td>30.0 cm</td></tr>
+                    `;
+                } else if (gender === 'women') {
+                    headers[0].textContent = 'US Women';
+                    headers[1].textContent = 'UK Women';
+                    html = `
+                        <tr><td>6.0</td><td>4.0</td><td>36.5</td><td>23.0 cm</td></tr>
+                        <tr><td>7.0</td><td>5.0</td><td>38.0</td><td>24.0 cm</td></tr>
+                        <tr><td>8.0</td><td>6.0</td><td>39.0</td><td>25.0 cm</td></tr>
+                        <tr><td>9.0</td><td>7.0</td><td>40.5</td><td>26.0 cm</td></tr>
+                        <tr><td>10.0</td><td>8.0</td><td>42.0</td><td>27.0 cm</td></tr>
+                    `;
+                } else if (gender === 'youth') {
+                    headers[0].textContent = 'US Youth';
+                    headers[1].textContent = 'UK Youth';
+                    html = `
+                        <tr><td>4.0 Y</td><td>3.5</td><td>36.0</td><td>22.5 cm</td></tr>
+                        <tr><td>5.0 Y</td><td>4.5</td><td>37.5</td><td>23.5 cm</td></tr>
+                        <tr><td>6.0 Y</td><td>5.5</td><td>38.5</td><td>24.5 cm</td></tr>
+                        <tr><td>7.0 Y</td><td>6.0</td><td>40.0</td><td>25.0 cm</td></tr>
+                    `;
+                }
+                tbody.innerHTML = html;
+            };
+
+            // ============================================================
+            // REFRESH SCROLLTRIGGER
+            // ============================================================
+            setTimeout(function () { ScrollTrigger.refresh(); }, 900);
+
+            console.log('✅ Cars page enhanced with floating animations, slide-ins from all directions, and 3D tilt!');
+
+        }); // end window.load
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,3443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Stackly | Premium Footwear Store</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- GSAP + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrambleTextPlugin.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           LOGO STYLES — GOLD THEME
+           ============================================================ */
+        .logo img,
+        .logo-sm img,
+        .footer-brand .footer-logo img {
+            width: auto;
+            display: block;
+            border-radius: 8px;
+            transition: filter 0.3s ease, transform 0.3s ease;
+            height: 45px;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .logo img:hover,
+        .logo-sm img:hover,
+        .footer-brand .footer-logo img:hover {
+            filter: brightness(0) saturate(100%) invert(75%) sepia(80%) saturate(1100%) hue-rotate(345deg) brightness(105%) contrast(105%);
+            transform: scale(1.04);
+        }
+
+        .footer-brand .footer-logo img {
+            height: 45px;
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        .navbar.scrolled .logo img {
+            filter: brightness(0) saturate(100%) invert(67%) sepia(93%) saturate(1353%) hue-rotate(345deg) brightness(101%) contrast(101%);
+        }
+
+        /* Mobile logo sizes */
+        @media (max-width: 992px) {
+            .logo img {
+                height: 60px;
+            }
+
+            .logo-sm img {
+                height: 50px;
+            }
+
+            .footer-brand .footer-logo img {
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                height: 80px;
+            }
+
+            .logo-sm img {
+                height: 50px;
+            }
+
+            .footer-brand .footer-logo img {
+                height: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
+
+            .logo-sm img {
+                height: 32px;
+            }
+
+            .footer-brand .footer-logo img {
+                height: 60px;
+            }
+        }
+
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        :root {
+            --cream: #FFF8EB;
+            --white: #ffffff;
+            --dark: #2C1F14;
+            --gold: #FF9F1C;
+            --gold-light: #FFC06E;
+            --gold-glow: rgba(255, 159, 28, 0.15);
+            --gray-100: #FFF1D6;
+            --gray-200: #F0E3CB;
+            --gray-300: #DCCFB7;
+            --gray-400: #9C8E79;
+            --text: #2C1F14;
+            --text-light: #6A5E53;
+            --shadow-sm: 0 2px 12px rgba(44, 31, 20, 0.03);
+            --shadow-md: 0 8px 32px rgba(44, 31, 20, 0.06);
+            --shadow-lg: 0 16px 56px rgba(44, 31, 20, 0.08);
+            --shadow-xl: 0 24px 80px rgba(44, 31, 20, 0.10);
+            --radius: 24px;
+            --radius-sm: 14px;
+            --font: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+            font-family: var(--font);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            box-shadow: 0 8px 28px var(--gold-glow);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 14px 44px var(--gold-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--text);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ============================================================
+           NAVBAR
+           ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 16px 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(250, 248, 245, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar.scrolled {
+            background: rgba(250, 248, 245, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .nav-logo .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), #b8942e);
+            transition: width 0.35s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .btn-login-car {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px 10px 18px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 24px var(--gold-glow);
+            font-family: var(--font);
+        }
+
+        .btn-login-car::before {
+            content: '👟';
+            font-size: 1.1rem;
+            margin-right: 2px;
+        }
+
+        .btn-login-car:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 12px 36px var(--gold-glow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+            z-index: 10000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text);
+            border-radius: 4px;
+            transition: all 0.3s;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(250, 248, 245, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 40px;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-overlay ul {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .mobile-menu-overlay ul a {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        .mobile-menu-overlay ul a:hover,
+        .mobile-menu-overlay ul a.active {
+            color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-overlay .mobile-login-btn {
+            margin-top: 8px;
+        }
+
+        .mobile-menu-overlay .mobile-login-btn .btn-login-car {
+            font-size: 1rem;
+            padding: 14px 36px;
+        }
+
+        .mobile-menu-overlay .close-mobile-menu {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--gray-200);
+            border-radius: 50%;
+            color: var(--text);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 12px 16px;
+            z-index: 9999;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto !important;
+        }
+
+        .mobile-menu-overlay .close-mobile-menu:hover {
+            transform: rotate(90deg);
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .mobile-menu-overlay .close-mobile-menu i {
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           PARALLAX CAR
+           ============================================================ */
+        .parallax-car {
+            position: fixed;
+            right: 30px;
+            bottom: 80px;
+            z-index: 50;
+            pointer-events: none;
+            font-size: 5rem;
+            transform: rotate(-4deg);
+            opacity: 0.06;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .parallax-car {
+                display: none;
+            }
+        }
+
+        /* ============================================================
+           SECTION BASE
+           ============================================================ */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text);
+        }
+
+        .section-title h2 .highlight {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 540px;
+            margin: 12px auto 0;
+            font-size: 1.05rem;
+        }
+
+        .section-bg-white {
+            background: var(--white);
+        }
+
+        .section-bg-cream {
+            background: var(--cream);
+        }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 60px;
+            background: linear-gradient(160deg, #faf8f5 0%, #f0ede8 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 18px 6px 12px;
+            border-radius: 40px;
+            background: rgba(201, 168, 76, 0.08);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: scale(1.8);
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.06;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+            color: var(--text);
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 460px;
+            margin-bottom: 28px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .hero-stats .stat .num {
+            font-family: var(--font-display);
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: inline-block;
+            min-width: 50px;
+        }
+
+        .hero-stats .stat .label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image .car-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            background: var(--white);
+        }
+
+        .hero-image .car-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .hero-image .car-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-image .floating-card {
+            position: absolute;
+            bottom: -16px;
+            left: -16px;
+            background: var(--white);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--gray-200);
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: floatY 3.5s ease-in-out infinite;
+        }
+
+        .hero-image .floating-card i {
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+
+        .hero-image .floating-card .fc-text {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .hero-image .floating-card .fc-text strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        @keyframes floatY {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ============================================================
+           FEATURED CARS — HORIZONTAL SCROLL (FIXED FOR MOBILE)
+           ============================================================ */
+        .cars-horizontal-section {
+            overflow: hidden;
+            background: var(--white);
+            padding: 80px 0 60px;
+            position: relative;
+        }
+
+        .cars-horizontal-section .section-title {
+            padding: 0 24px;
+            margin-bottom: 30px;
+        }
+
+        .cars-horizontal-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0 30px;
+        }
+
+        .cars-horizontal-track {
+            display: flex;
+            gap: 24px;
+            padding: 0 24px;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .car-card-horizontal {
+            margin-top: 120px;
+            flex: 0 0 300px;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px 20px 24px;
+            border: 1px solid var(--gray-200);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-card-horizontal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), #b8942e);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .car-card-horizontal:hover::before {
+            transform: scaleX(1);
+        }
+
+        .car-card-horizontal:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .car-card-horizontal .car-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: var(--gray-100);
+        }
+
+        .car-card-horizontal .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .car-card-horizontal:hover .car-img img {
+            transform: scale(1.05);
+        }
+
+        .car-card-horizontal .car-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .car-card-horizontal .car-price {
+            font-size: 1rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin: 2px 0 8px;
+        }
+
+        .car-card-horizontal .car-price span {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+
+        .car-card-horizontal .car-specs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            font-size: 0.78rem;
+            color: var(--gray-400);
+        }
+
+        .car-card-horizontal .car-specs i {
+            color: var(--gold);
+            margin-right: 4px;
+        }
+
+        .car-card-horizontal .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Scroll progress dots */
+        .scroll-progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 0 24px;
+        }
+
+        .scroll-progress .dot-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .scroll-progress .dot-indicator.active {
+            background: var(--gold);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Responsive card sizes */
+        @media (max-width: 768px) {
+            .car-card-horizontal {
+                flex: 0 0 260px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .car-card-horizontal {
+                margin-top: 90px;
+                flex: 0 0 240px;
+                padding: 16px 14px 18px;
+            }
+
+            .cars-horizontal-wrapper {
+                min-height: 360px;
+            }
+        }
+
+        /* ============================================================
+           WHY CHOOSE US — SLIDING CARDS
+           ============================================================ */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 28px;
+            overflow: hidden;
+        }
+
+        .benefit-card {
+            padding: 32px 24px;
+            border-radius: var(--radius);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Bento Grid Layout Configuration */
+        .benefit-card.bento-large-1 {
+            grid-column: span 8;
+            text-align: left;
+            padding: 40px;
+            flex-direction: row;
+            align-items: center;
+            gap: 28px;
+            transform: translateX(-100px);
+        }
+
+        .benefit-card.bento-small-1 {
+            grid-column: span 4;
+            text-align: center;
+            transform: translateX(100px);
+        }
+
+        .benefit-card.bento-small-2 {
+            grid-column: span 4;
+            text-align: center;
+            transform: translateX(-100px);
+        }
+
+        .benefit-card.bento-large-2 {
+            grid-column: span 8;
+            text-align: left;
+            padding: 40px;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 28px;
+            transform: translateX(100px);
+        }
+
+        .benefit-card.bento-large-1 .bento-text,
+        .benefit-card.bento-large-2 .bento-text {
+            flex: 1;
+        }
+
+        .benefit-card.bento-large-1 .icon,
+        .benefit-card.bento-large-2 .icon {
+            margin: 0;
+            width: 80px;
+            height: 80px;
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-card.visible {
+            opacity: 1;
+            transform: translateX(0) !important;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px) scale(1.02) !important;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .benefit-card .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 159, 28, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.6rem;
+            color: var(--gold);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .benefit-card:hover .icon {
+            background: rgba(255, 159, 28, 0.12);
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .benefit-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-family: var(--font-display);
+        }
+
+        .benefit-card p {
+            font-size: 0.92rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Responsive Bento Rules */
+        @media (max-width: 992px) {
+            .benefit-card.bento-large-1,
+            .benefit-card.bento-large-2 {
+                grid-column: span 12;
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+                padding: 32px 24px;
+            }
+            .benefit-card.bento-large-1 .icon,
+            .benefit-card.bento-large-2 .icon {
+                margin: 0 auto 16px;
+            }
+            .benefit-card.bento-small-1,
+            .benefit-card.bento-small-2 {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .benefit-card.bento-small-1,
+            .benefit-card.bento-small-2 {
+                grid-column: span 12;
+            }
+        }
+
+        /* ============================================================
+           HOW IT WORKS — STUNNING
+           ============================================================ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            perspective: 1200px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 34px 24px 30px;
+            border-radius: var(--radius);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-sm);
+            transform: rotateY(12deg) scale(0.92);
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(201, 168, 76, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: rotateY(0deg) scale(1);
+        }
+
+        .step-card.visible:nth-child(1) {
+            animation: float-card-odd 5s ease-in-out infinite;
+        }
+
+        .step-card.visible:nth-child(2) {
+            animation: float-card-even 5.5s ease-in-out infinite;
+        }
+
+        .step-card.visible:nth-child(3) {
+            animation: float-card-odd 4.8s ease-in-out infinite;
+        }
+
+        /* Jumpy spring pop on hover */
+        @keyframes jumpy-pop {
+            0% { transform: translateY(0) scale(1); }
+            30% { transform: translateY(-18px) scale(1.06); }
+            50% { transform: translateY(3px) scale(0.97); }
+            70% { transform: translateY(-5px) scale(1.01); }
+            100% { transform: translateY(-8px) scale(1.03); }
+        }
+
+        /* Floating keyframes */
+        @keyframes float-card-even {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes float-card-odd {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        .step-card:hover {
+            animation: jumpy-pop 0.75s cubic-bezier(0.25, 0.8, 0.25, 1.25) forwards !important;
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-card .step-num {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 4px;
+            transition: transform 0.4s;
+        }
+
+        .step-card:hover .step-num {
+            transform: scale(1.1);
+        }
+
+        .step-card .step-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .step-card:hover .step-icon {
+            transform: scale(1.15) rotate(-4deg);
+        }
+
+        .step-card h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           SNEAKER CARE & CLEANING SECTION
+           ============================================================ */
+        .care-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        .care-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 34px 28px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            text-align: center;
+        }
+
+        .care-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .care-card .care-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 159, 28, 0.06);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+            transition: all 0.4s ease;
+        }
+
+        .care-card:hover .care-icon {
+            transform: scale(1.1) rotate(6deg);
+            background: rgba(255, 159, 28, 0.12);
+        }
+
+        .care-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .care-card p {
+            font-size: 0.92rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+           COMMUNITY GALLERY SECTION
+           ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(44, 31, 20, 0.85), transparent);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: var(--white);
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Connector line between steps (desktop) */
+        @media (min-width: 768px) {
+            .steps-grid {
+                position: relative;
+            }
+
+            .steps-grid::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 15%;
+                right: 15%;
+                height: 2px;
+                background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+                opacity: 0.15;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+        }
+
+        /* ============================================================
+           TESTIMONIALS — AUTO SCROLLING MARQUEE
+           ============================================================ */
+        .testimonials-marquee {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .testimonials-marquee-track {
+            display: flex;
+            gap: 28px;
+            width: max-content;
+            animation: scrollTestimonials 35s linear infinite;
+        }
+
+        .testimonials-marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTestimonials {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .testimonial-card-marquee {
+            flex: 0 0 340px;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 28px 30px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card-marquee:hover {
+            transform: scale(1.03);
+            border-color: var(--gold-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-card-marquee .stars {
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-card-marquee blockquote {
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-card-marquee .author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .testimonial-card-marquee .author .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--white);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .testimonial-card-marquee .author .name {
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .testimonial-card-marquee .author .role {
+            font-size: 0.78rem;
+            color: var(--gray-400);
+        }
+
+        /* ============================================================
+           SPECIAL OFFERS
+           ============================================================ */
+        .offer-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 44px 48px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            align-items: center;
+        }
+
+        .offer-card .offer-content h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .offer-card .offer-content h3 .highlight {
+            color: var(--gold);
+        }
+
+        .offer-card .offer-content p {
+            color: var(--text-light);
+            margin-bottom: 18px;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .offer-card .offer-content .offer-tag {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+        }
+
+        .offer-card .offer-image {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            background: var(--gray-100);
+        }
+
+        .offer-card .offer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .offer-card:hover .offer-image img {
+            transform: scale(1.04);
+        }
+
+        /* ============================================================
+           CTA — with Particle Burst
+           ============================================================ */
+        .cta-section {
+            background: linear-gradient(160deg, var(--cream), #f0ede8);
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .cta-section h2 .highlight {
+            color: var(--gold);
+        }
+
+        .cta-section p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto 28px;
+            font-size: 1.05rem;
+        }
+
+        .cta-section .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           FOOTER — STYLISH & UNIQUE
+           ============================================================ */
+        .footer {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            padding-top: 0;
+        }
+
+        .footer-shape {
+            position: relative;
+            width: 100%;
+            height: 70px;
+            background: var(--white);
+            overflow: hidden;
+            margin-bottom: -2px;
+        }
+
+        .footer-shape svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: block;
+        }
+
+        .footer-shape svg path {
+            fill: var(--cream);
+        }
+
+        .footer-content {
+            background: var(--cream);
+            padding: 50px 0 30px;
+            position: relative;
+        }
+
+        /* MOVING BLACK GLOW — REPLACES GOLDEN GLOW */
+        .footer-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.02) 15%,
+                    rgba(0, 0, 0, 0.6) 35%,
+                    rgba(0, 0, 0, 0.9) 50%,
+                    rgba(0, 0, 0, 0.6) 65%,
+                    rgba(0, 0, 0, 0.02) 85%,
+                    transparent 100%);
+            opacity: 0.7;
+            z-index: 1;
+            animation: blackGlowMove 4s ease-in-out infinite;
+            filter: blur(1px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 400%;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.01) 20%,
+                    rgba(0, 0, 0, 0.3) 40%,
+                    rgba(0, 0, 0, 0.5) 50%,
+                    rgba(0, 0, 0, 0.3) 60%,
+                    rgba(0, 0, 0, 0.01) 80%,
+                    transparent 100%);
+            opacity: 0.4;
+            z-index: 1;
+            animation: blackGlowMove 5.5s ease-in-out infinite reverse;
+            filter: blur(3px);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 36px;
+        }
+
+        .footer-brand .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        .footer-brand .footer-logo .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .footer-brand .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            max-width: 320px;
+            margin: 10px 0 16px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-social a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 50%;
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-4px) scale(1.08);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        .footer-social a:hover::before {
+            opacity: 1;
+        }
+
+        .footer-social a i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-col h4 {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 24px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+            border-radius: 2px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            display: inline-block;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .footer-col ul a::before {
+            content: '—';
+            opacity: 0;
+            margin-right: 0;
+            transition: all 0.3s;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+            padding-left: 20px;
+        }
+
+        .footer-col ul a:hover::before {
+            opacity: 1;
+            margin-right: 8px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-200);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: var(--gray-400);
+        }
+
+        .footer-bottom .footer-heart {
+            color: var(--gold);
+            display: inline-block;
+            animation: heartBeat 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blackGlowMove {
+            0% {
+                transform: translateX(0);
+                opacity: 0.4;
+            }
+
+            25% {
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translateX(33.33%);
+                opacity: 0.4;
+            }
+
+            75% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateX(66.66%);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.2);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.15);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .footer-bottom .legal-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom .legal-links a {
+            color: var(--gray-400);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .footer-bottom .legal-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.5);
+            transition: width 0.3s;
+        }
+
+        .footer-bottom .legal-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom .legal-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ============================================================
+           BACK TO TOP
+           ============================================================ */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b8942e);
+            color: var(--white);
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px var(--gold-glow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-top:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        /* ============================================================
+           PARTICLE CANVAS (for CTA burst)
+           ============================================================ */
+        #particleCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #particleCanvas.active {
+            opacity: 1;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .offer-card {
+                grid-template-columns: 1fr;
+                padding: 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .car-card-horizontal {
+                flex: 0 0 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content::before {
+                height: 2px;
+                opacity: 0.5;
+                animation-duration: 3.5s;
+            }
+
+            .footer-content::after {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 36px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+
+            .hero-image .floating-card {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+
+            .offer-card {
+                padding: 24px;
+            }
+
+            .offer-card .offer-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand p {
+                max-width: 100%;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-col h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-col ul a::before {
+                display: none;
+            }
+
+            .footer-col ul a:hover {
+                padding-left: 0;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .mobile-menu-overlay ul a {
+                font-size: 1.7rem;
+            }
+
+            .cars-horizontal-section {
+                padding: 60px 0 40px;
+            }
+
+            .testimonial-card-marquee {
+                flex: 0 0 280px;
+            }
+
+            .benefit-card {
+                transform: translateX(40px);
+            }
+
+            .benefit-card:nth-child(2) {
+                transform: translateX(0px);
+            }
+
+            .benefit-card:nth-child(3) {
+                transform: translateX(0px);
+            }
+
+            .benefit-card:nth-child(4) {
+                transform: translateX(0px);
+            }
+
+            .step-card {
+                transform: rotateY(0deg) scale(0.92);
+            }
+
+            .step-card:nth-child(2) {
+                transform: rotateY(0deg) scale(0.92);
+            }
+
+            .step-card:nth-child(3) {
+                transform: rotateY(0deg) scale(0.92);
+            }
+
+            .step-card.visible {
+                transform: rotateY(0deg) scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+
+            .btn-login-car {
+                padding: 8px 16px 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .btn-login-car::before {
+                font-size: 0.9rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .offer-card .offer-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .mobile-menu-overlay ul a {
+                font-size: 1.4rem;
+            }
+
+            .testimonial-card-marquee {
+                flex: 0 0 260px;
+                padding: 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .footer-shape {
+                height: 40px;
+            }
+
+            .footer-shape svg {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    PARALLAX CAR
+    ============================================================ -->
+    <div class="parallax-car" id="parallaxCar">👟</div>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo logo">
+                <img src="logo_trimmed.webp" alt="Stackly" loading="lazy" />
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="shoes.html">Shoes</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="btn-login-car">Login</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    FULL-SCREEN MOBILE MENU
+    ============================================================ -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="close-mobile-menu" id="closeMobileMenu" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="shoes.html">Shoes</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="mobile-login-btn">
+            <a href="login.html" class="btn-login-car">Login</a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content" id="heroContent">
+                    <div class="hero-badge" id="heroBadge">
+                        <span class="dot"></span>
+                        Premium Sneakers • 24/7 Support
+                    </div>
+                    <h1 id="heroHeadline">
+                        Step into <br /><span class="highlight">Extraordinary</span>
+                    </h1>
+                    <p id="heroSubtext">
+                        Experience luxury, style, and athletic performance with our curated collection
+                        of premium sneakers. Find your perfect fit in minutes.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="shoes.html" class="btn btn-gold">
+                            <i class="fa-solid fa-shoe-prints"></i> Browse Shoes
+                        </a>
+                        <a href="contact.html" class="btn btn-outline">
+                            <i class="fas fa-shopping-bag"></i> Shop Now
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="num" id="stat1" data-target="120">0</span>
+                            <span class="label">Exclusive Styles</span>
+                        </div>
+                        <div class="stat">
+                            <span class="num" id="stat2" data-target="4.9">0</span>
+                            <span class="label">Customer Rating</span>
+                        </div>
+                        <div class="stat">
+                            <span class="num" id="stat3" data-target="98">0</span>
+                            <span class="label">Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image" id="heroImage">
+                    <div class="car-wrapper">
+                        <img src="./assets/sneaker-hero-bg.webp"
+                            alt="Premium Sneaker" loading="lazy" />
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-circle-check"></i>
+                        <div class="fc-text">
+                            <strong>Authentic &amp; Verified</strong>
+                            100% original sneakers
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FEATURED CARS — HORIZONTAL SCROLL (FIXED)
+    ============================================================ -->
+    <section class="cars-horizontal-section" id="featuredHorizontal">
+
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Our Collection</span>
+                <h2 id="featuredTitle">Featured <span class="highlight">Sneakers</span></h2>
+                <p id="featuredSub">Scroll to explore our curated footwear collection</p>
+            </div>
+        </div>
+
+        <div class="cars-horizontal-wrapper" id="horizontalWrapper">
+            <div class="cars-horizontal-track" id="horizontalTrack">
+
+                <!-- Shoe 1 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-red-airmax.webp" alt="Aero Max Runner" loading="lazy" />
+                    </div>
+                    <div class="car-name">Aero Max Runner</div>
+                    <div class="car-price">$189 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-bolt"></i> Responsive</span>
+                        <span><i class="fas fa-feather-alt"></i> Light</span>
+                        <span><i class="fas fa-wind"></i> Breathable</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 2 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-puma-white.webp" alt="Ultraboost Speed" loading="lazy" />
+                    </div>
+                    <div class="car-name">Ultraboost Speed</div>
+                    <div class="car-price">$220 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-bolt"></i> Responsive</span>
+                        <span><i class="fas fa-feather-alt"></i> Cushioned</span>
+                        <span><i class="fas fa-wind"></i> Mesh Upper</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 3 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-casual-tan.webp" alt="Royal Court Classic" loading="lazy" />
+                    </div>
+                    <div class="car-name">Royal Court Classic</div>
+                    <div class="car-price">$350 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-gem"></i> Premium</span>
+                        <span><i class="fas fa-layer-group"></i> Leather</span>
+                        <span><i class="fas fa-socks"></i> Comfort Fit</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 4 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-nike-green.webp" alt="Apex Carbon Flight" loading="lazy" />
+                    </div>
+                    <div class="car-name">Apex Carbon Flight</div>
+                    <div class="car-price">$275 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-rocket"></i> Carbon Plate</span>
+                        <span><i class="fas fa-feather-alt"></i> Ultra-Light</span>
+                        <span><i class="fas fa-running"></i> Pro Speed</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 5 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/customizer-workshop.webp" alt="Vanguard Sport" loading="lazy" />
+                    </div>
+                    <div class="car-name">Vanguard Sport</div>
+                    <div class="car-price">$195 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-bolt"></i> Energy Foam</span>
+                        <span><i class="fas fa-feather-alt"></i> Light</span>
+                        <span><i class="fas fa-wind"></i> Breathable</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 6 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-colorful-retro.webp" alt="Monarch Luxury Suede" loading="lazy" />
+                    </div>
+                    <div class="car-name">Monarch Luxury Suede</div>
+                    <div class="car-price">$310 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-gem"></i> Luxury Suede</span>
+                        <span><i class="fas fa-palette"></i> Designer</span>
+                        <span><i class="fas fa-socks"></i> Plush Fit</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 7 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-adidas-yellow.webp" alt="Stratus Lifestyle" loading="lazy" />
+                    </div>
+                    <div class="car-name">Stratus Lifestyle</div>
+                    <div class="car-price">$240 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-couch"></i> Comfort Sole</span>
+                        <span><i class="fas fa-gem"></i> Soft Grain</span>
+                        <span><i class="fas fa-circle-check"></i> Everyday</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+                <!-- Shoe 8 -->
+                <div class="car-card-horizontal">
+                    <div class="car-img">
+                        <img src="./assets/sneaker-running-black.webp" alt="Ignite Trainer V2" loading="lazy" />
+                    </div>
+                    <div class="car-name">Ignite Trainer V2</div>
+                    <div class="car-price">$165 <span>/ pair</span></div>
+                    <div class="car-specs">
+                        <span><i class="fas fa-running"></i> Flex Sole</span>
+                        <span><i class="fas fa-feather-alt"></i> Lightweight</span>
+                        <span><i class="fas fa-wind"></i> Airy Mesh</span>
+                    </div>
+                    <a href="404.html" class="btn btn-gold">Shop Now</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Progress dots -->
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </section>
+
+    <!-- ============================================================
+    WHY CHOOSE US — SLIDING CARDS
+    ============================================================ -->
+    <section class="section-bg-cream" id="why">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Why Us</span>
+                <h2 id="whyTitle">Walk with <span class="highlight">Confidence</span></h2>
+                <p id="whySub">Experience the difference that sets us apart</p>
+            </div>
+            <div class="benefits-grid" id="benefitsGrid">
+                <div class="benefit-card bento-large-1" data-delay="0">
+                    <div class="icon"><i class="fas fa-circle-check"></i></div>
+                    <div class="bento-text">
+                        <h4>100% Authentic Products</h4>
+                        <p>Every single sneaker that leaves our warehouse passes a strict inspection by our expert authentication team. Walk with peace of mind knowing you got the real deal.</p>
+                    </div>
+                </div>
+                <div class="benefit-card bento-small-1" data-delay="0.1">
+                    <div class="icon"><i class="fas fa-headset"></i></div>
+                    <h4>24/7 Premium Support</h4>
+                    <p>Our concierge support agents are available day and night to answer queries.</p>
+                </div>
+                <div class="benefit-card bento-small-2" data-delay="0.2">
+                    <div class="icon"><i class="fas fa-shoe-prints"></i></div>
+                    <h4>Exclusive Catalog</h4>
+                    <p>Gain access to limited raffles, vintage sneakers, and member-only collections.</p>
+                </div>
+                <div class="benefit-card bento-large-2" data-delay="0.3">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <div class="bento-text">
+                        <h4>Lightning Fast Shipping</h4>
+                        <p>With distribution hubs across the country, we dispatch orders within hours. Tracking is fully transparent so you know exactly when your next favorite pair arrives.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    HOW IT WORKS — STUNNING
+    ============================================================ -->
+    <section class="section-bg-white" id="how">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Process</span>
+                <h2 id="howTitle">How It <span class="highlight">Works</span></h2>
+                <p id="howSub">Three simple steps to step up your sneaker game</p>
+            </div>
+            <div class="steps-grid" id="stepsGrid">
+                <div class="step-card" data-delay="0">
+                    <div class="step-num">01</div>
+                    <span class="step-icon"><i class="fas fa-search"></i></span>
+                    <h4>Select Your Style</h4>
+                    <p>Browse our curated shop of premium footwear</p>
+                </div>
+                <div class="step-card" data-delay="0.15">
+                    <div class="step-num">02</div>
+                    <span class="step-icon"><i class="fas fa-wallet"></i></span>
+                    <h4>Checkout Securely</h4>
+                    <p>Complete your payment securely in minutes</p>
+                </div>
+                <div class="step-card" data-delay="0.3">
+                    <div class="step-num">03</div>
+                    <span class="step-icon"><i class="fas fa-shoe-prints"></i></span>
+                    <h4>Wear &amp; Flex</h4>
+                    <p>Unbox your fresh pair and step out with style</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SNEAKER CARE SERVICES
+    ============================================================ -->
+    <section class="section-bg-cream" id="care">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Sneaker Care</span>
+                <h2 id="careTitle">Keep Your Kicks <span class="highlight">Fresh</span></h2>
+                <p id="careSub">Premium restoration and cleaning services to extend the lifespan of your rotation</p>
+            </div>
+            <div class="care-grid">
+                <div class="care-card">
+                    <div class="care-icon"><i class="fas fa-soap"></i></div>
+                    <h4>Premium Deep Clean</h4>
+                    <p>Complete dirt and stain extraction for suede, leather, mesh, and knit materials using organic solutions.</p>
+                </div>
+                <div class="care-card">
+                    <div class="care-icon"><i class="fas fa-magic"></i></div>
+                    <h4>Sole Whitening</h4>
+                    <p>Advanced oxidation treatment to reverse yellowing on midsoles and ice soles, restoring factory-fresh looks.</p>
+                </div>
+                <div class="care-card">
+                    <div class="care-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h4>Waterproof Shield</h4>
+                    <p>Nanotechnology hydrophobic coating that guards against rain, mud, stains, and liquid spills for months.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SPECIAL OFFERS
+    ============================================================ -->
+    <section class="section-bg-white" id="offers">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Offers</span>
+                <h2 id="offersTitle">Exclusive <span class="highlight">Deals</span></h2>
+                <p id="offersSub">Limited-time offers on our most hyped releases</p>
+            </div>
+            <div class="offer-card" id="offerCard">
+                <div class="offer-content">
+                    <span class="offer-tag">🔥 Limited Time</span>
+                    <h3>Season <span class="highlight">Kickoff</span> Special</h3>
+                    <p>Enjoy 25% off on all sport and lifestyle runners for select summer releases. Perfect for updating your rotation.</p>
+                    <a href="shoes.html" class="btn btn-gold">
+                        <i class="fas fa-arrow-right"></i> View Offer
+                    </a>
+                </div>
+                <div class="offer-image">
+                    <img src="./assets/sneaker-care-bg.webp"
+                        alt="Hyped Sneakers" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    COMMUNITY STYLE GALLERY
+    ============================================================ -->
+    <section class="section-bg-cream" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Community</span>
+                <h2 id="galleryTitle">Laced Up by the <span class="highlight">Community</span></h2>
+                <p id="gallerySub">Check out how our members style their favorite drops on social media</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="./assets/sneaker-lifestyle-tan.webp" alt="Style 1" loading="lazy" />
+                    <div class="gallery-overlay">
+                        <span>@alex_lace</span>
+                        <p>Air Monarch Sport styling</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./assets/customizer-workshop.webp" alt="Style 2" loading="lazy" />
+                    <div class="gallery-overlay">
+                        <span>@sarah.kicks</span>
+                        <p>Quantum Glide in the city</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./assets/sneaker-lifestyle-blue.webp" alt="Style 3" loading="lazy" />
+                    <div class="gallery-overlay">
+                        <span>@kicks_on_fire</span>
+                        <p>Veloce Racer Gold style</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./assets/sneaker-lifestyle-gray.webp" alt="Style 4" loading="lazy" />
+                    <div class="gallery-overlay">
+                        <span>@street_hype</span>
+                        <p>Trailblazer Runner daily look</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TESTIMONIALS — AUTO SCROLLING MARQUEE
+    ============================================================ -->
+    <section class="section-bg-white" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-label">Testimonials</span>
+                <h2 id="testimonialTitle">What Our <span class="highlight">Clients Say</span></h2>
+                <p id="testimonialSub">Real experiences from real customers</p>
+            </div>
+            <div class="testimonials-marquee">
+                <div class="testimonials-marquee-track" id="testimonialTrack">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CTA — with Particle Burst
+    ============================================================ -->
+    <section class="cta-section" id="cta">
+        <canvas id="particleCanvas"></canvas>
+        <div class="cta-inner">
+            <h2 id="ctaTitle">Ready to <span class="highlight">Step</span> into the Extraordinary?</h2>
+            <p id="ctaSub">Join thousands of sneakerheads who choose Stackly for their premium authentic footwear needs.
+            </p>
+            <div class="btn-group">
+                <a href="shoes.html" class="btn btn-gold">
+                    <i class="fas fa-shoe-prints"></i> Browse Collection
+                </a>
+                <a href="contact.html" class="btn btn-white">
+                    <i class="fas fa-headset"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER — STYLISH & UNIQUE
+    ============================================================ -->
+    <footer class="footer">
+        <div class="footer-shape">
+            <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
+                <path d="M0,20 C360,60 1080,0 1440,30 L1440,70 L0,70 Z"></path>
+            </svg>
+        </div>
+        <div class="footer-content">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo logo">
+                            <img src="logo_trimmed.webp" alt="Stackly" loading="lazy" />
+                        </div>
+                        <p>Premium footwear experiences designed for those who appreciate authentic style. Luxury design, athletic performance, and exceptional service.</p>
+                        <div class="footer-social">
+                            <a href="404.html" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="404.html" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                            <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="shoes.html">Collection</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="404.html">FAQ</a></li>
+                            <li><a href="404.html">Booking Policy</a></li>
+                            <li><a href="404.html">Insurance</a></li>
+                            <li><a href="404.html">24/7 Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="404.html">Privacy Policy</a></li>
+                            <li><a href="404.html">Terms of Service</a></li>
+                            <li><a href="404.html">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 Stackly. Crafted with <span class="footer-heart"><i
+                                class="fas fa-heart"></i></span> for your active lifestyle.</span>
+                    <div class="legal-links">
+                        <a href="404.html">Privacy</a>
+                        <a href="404.html">Terms</a>
+                        <a href="404.html">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BACK TO TOP
+    ============================================================ -->
+    <button class="back-top" id="backTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================
+    GSAP + PLUGINS
+    ============================================================ -->
+    <script>
+        window.addEventListener('load', function () {
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            if (typeof SplitText === 'undefined') console.warn('⚠️ SplitText not loaded.');
+            if (typeof ScrambleTextPlugin === 'undefined') console.warn('⚠️ ScrambleTextPlugin not loaded.');
+
+            // ============================================================
+            // 1. NAVBAR SCROLL
+            // ============================================================
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                navbar.classList.toggle('scrolled', window.scrollY > 40);
+            });
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const closeBtn = document.getElementById('closeMobileMenu');
+
+            function openMenu() {
+                overlay.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+            }
+
+            function closeMenu() {
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+
+            if (hamburger) {
+                hamburger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (overlay.classList.contains('active')) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    closeMenu();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function (e) {
+                    if (e.target === overlay) {
+                        closeMenu();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            document.querySelectorAll('.mobile-menu-overlay ul a, .mobile-login-btn .btn-login-car').forEach(function (
+                link) {
+                link.addEventListener('click', function () {
+                    closeMenu();
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768 && overlay.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            console.log('✅ Mobile menu initialized');
+
+            // ============================================================
+            // 3. BACK TO TOP
+            // ============================================================
+            const backTop = document.getElementById('backTop');
+            window.addEventListener('scroll', function () {
+                backTop.classList.toggle('show', window.scrollY > 500);
+            });
+            backTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ============================================================
+            // 4. HERO COUNTER ANIMATION
+            // ============================================================
+            function animateCounter(element) {
+                const target = parseFloat(element.getAttribute('data-target'));
+                if (isNaN(target)) return;
+
+                let current = 0;
+                const duration = 1500; // slightly slower for better visibility
+                const startTime = performance.now();
+                const isRating = target === 4.9;
+
+                function updateCounter(timestamp) {
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    current = eased * target;
+
+                    let display;
+                    if (isRating) {
+                        display = current.toFixed(1);
+                    } else {
+                        display = Math.floor(current).toLocaleString();
+                    }
+                    element.textContent = display + (isRating ? '★' : target === 98 ? '%' : '');
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+            }
+
+            const statElements = document.querySelectorAll('.hero-stats .stat .num');
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.dataset.counted) {
+                        // Only auto-trigger via observer if not already triggered by GSAP
+                        entry.target.dataset.counted = 'true';
+                        animateCounter(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            statElements.forEach(el => statObserver.observe(el));
+
+            // ============================================================
+            // 5. SPLIT TEXT — HERO HEADLINE
+            // ============================================================
+            try {
+                const heroHeadline = document.getElementById('heroHeadline');
+                if (heroHeadline && typeof SplitText !== 'undefined') {
+                    const heroSplit = new SplitText(heroHeadline, { type: 'chars', charsClass: 'char++' });
+                    gsap.from(heroSplit.chars, {
+                        duration: 1.4,
+                        y: 80,
+                        opacity: 0,
+                        rotationX: 40,
+                        stagger: 0.04,
+                        ease: 'power3.out',
+                        delay: 0.5
+                    });
+                }
+            } catch (e) { console.warn('SplitText hero headline error:', e); }
+
+            // ============================================================
+            // 6. SPLIT TEXT — HERO SUBTEXT
+            // ============================================================
+            try {
+                const heroSubtext = document.getElementById('heroSubtext');
+                if (heroSubtext && typeof SplitText !== 'undefined') {
+                    const subSplit = new SplitText(heroSubtext, { type: 'words', wordsClass: 'word++' });
+                    gsap.from(subSplit.words, {
+                        duration: 1.2,
+                        y: 40,
+                        opacity: 0,
+                        stagger: 0.06,
+                        ease: 'power3.out',
+                        delay: 1.2
+                    });
+                }
+            } catch (e) { console.warn('SplitText hero subtext error:', e); }
+
+            // ============================================================
+            // 7. SCRAMBLE TEXT — HERO BADGE
+            // ============================================================
+            try {
+                const badge = document.getElementById('heroBadge');
+                if (badge && typeof ScrambleTextPlugin !== 'undefined') {
+                    const originalBadge = badge.textContent.trim();
+                    gsap.to(badge, {
+                        duration: 2.5,
+                        scrambleText: {
+                            text: originalBadge,
+                            chars: 'upperCase',
+                            speed: 0.4,
+                            revealDelay: 0.3
+                        },
+                        ease: 'power2.out',
+                        delay: 0.3
+                    });
+                }
+            } catch (e) { console.warn('ScrambleText badge error:', e); }
+
+            // ============================================================
+            // 8. SCRAMBLE TEXT — STATS ON HOVER
+            // ============================================================
+            document.querySelectorAll('.hero-stats .stat .num').forEach(function (stat) {
+                const original = stat.textContent;
+                stat.addEventListener('mouseenter', function () {
+                    try {
+                        if (typeof ScrambleTextPlugin !== 'undefined') {
+                            gsap.to(this, {
+                                duration: 0.8,
+                                scrambleText: {
+                                    text: original,
+                                    chars: '0123456789+★%',
+                                    speed: 0.15,
+                                    revealDelay: 0.1
+                                },
+                                ease: 'power2.out'
+                            });
+                        }
+                    } catch (e) { console.warn('ScrambleText stat error:', e); }
+                });
+            });
+
+            // ============================================================
+            // 9. SCROLL-TRIGGERED SPLIT TEXT — SECTION TITLES
+            // ============================================================
+            const titleIds = ['featuredTitle', 'whyTitle', 'howTitle', 'careTitle', 'offersTitle', 'galleryTitle', 'testimonialTitle', 'ctaTitle'];
+            titleIds.forEach(function (id, index) {
+                try {
+                    const el = document.getElementById(id);
+                    if (!el || typeof SplitText === 'undefined') return;
+                    const split = new SplitText(el, { type: 'words', wordsClass: 'word++' });
+                    gsap.from(split.words, {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        },
+                        duration: 0.9,
+                        y: 50,
+                        opacity: 0,
+                        stagger: 0.05,
+                        ease: 'power3.out',
+                        delay: index * 0.05
+                    });
+                } catch (e) { console.warn('SplitText section title error for', id, e); }
+            });
+
+            // ============================================================
+            // 10. SCRAMBLE TEXT — SECTION SUBTEXTS
+            // ============================================================
+            const subTexts = ['featuredSub', 'whySub', 'howSub', 'careSub', 'offersSub', 'gallerySub', 'testimonialSub', 'ctaSub'];
+            subTexts.forEach(function (id, i) {
+                try {
+                    const el = document.getElementById(id);
+                    if (!el || typeof ScrambleTextPlugin === 'undefined') return;
+                    const original = el.textContent;
+                    gsap.to(el, {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        },
+                        duration: 1.8,
+                        scrambleText: {
+                            text: original,
+                            chars: 'upperCase',
+                            speed: 0.25,
+                            revealDelay: 0.2 + i * 0.05
+                        },
+                        ease: 'power2.out',
+                        delay: 0.1 * i
+                    });
+                } catch (e) { console.warn('ScrambleText subtext error for', id, e); }
+            });
+
+            // ============================================================
+            // 11. GSAP HERO ANIMATIONS
+            // ============================================================
+            const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            heroTL
+                .from('.hero-badge', { opacity: 0, y: 30, duration: 0.6, skewX: -4 }, 0.2)
+                .from('.hero-buttons .btn', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.6,
+                    stagger: 0.15,
+                    scale: 0.95
+                }, 1.4)
+                .from('.hero-stats .stat', {
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.12,
+                    scale: 0.8,
+                    onStart: function() {
+                        document.querySelectorAll('.hero-stats .stat .num').forEach(el => {
+                            if (!el.dataset.counted) {
+                                el.dataset.counted = 'true';
+                                animateCounter(el);
+                            }
+                        });
+                    }
+                }, 1.6)
+                .from('.hero-image .car-wrapper', {
+                    opacity: 0,
+                    scale: 0.85,
+                    duration: 1.3,
+                    ease: 'power2.out',
+                    rotation: 3
+                }, 0.3)
+                .from('.hero-image .floating-card', {
+                    opacity: 0,
+                    y: 40,
+                    duration: 0.8,
+                    scale: 0.9
+                }, 1.2);
+
+            // ============================================================
+            // 12. HORIZONTAL SCROLL — FIXED FOR MOBILE
+            // ============================================================
+            const track = document.getElementById('horizontalTrack');
+            const wrapper = document.getElementById('horizontalWrapper');
+            const cards = track.querySelectorAll('.car-card-horizontal');
+
+            // Function to calculate scroll distance manually (more reliable)
+            function calculateScrollDistance() {
+                // Get the first card's width including gap
+                const gap = 24;
+                let cardWidth = 300; // default desktop size
+
+                // Check window width for responsive card sizes
+                if (window.innerWidth <= 480) {
+                    cardWidth = 240;
+                } else if (window.innerWidth <= 768) {
+                    cardWidth = 260;
+                }
+
+                // Get the actual card width from DOM if available
+                if (cards.length > 0) {
+                    const actualWidth = cards[0].offsetWidth;
+                    if (actualWidth > 0) {
+                        cardWidth = actualWidth;
+                    }
+                }
+
+                const totalTrackWidth = cards.length * (cardWidth + gap);
+                const wrapperWidth = wrapper.clientWidth;
+                // Add a generous buffer to ensure all cards are fully visible
+                const buffer = 80;
+                return Math.max(0, totalTrackWidth - wrapperWidth + buffer);
+            }
+
+            let scrollableWidth = calculateScrollDistance();
+
+            // Create horizontal scroll with proper pinning
+            const horizontalScroll = gsap.to(track, {
+                x: -scrollableWidth,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: wrapper,
+                    pin: true,
+                    start: 'top top',
+                    end: () => `+=${scrollableWidth + 50}`,
+                    scrub: 1.2,
+                    invalidateOnRefresh: true,
+                    onUpdate: function (self) {
+                        updateProgressDots(self.progress);
+                    }
+                }
+            });
+
+            // ============================================================
+            // 13. PROGRESS DOTS
+            // ============================================================
+            const progressContainer = document.getElementById('scrollProgress');
+            const numDots = Math.min(cards.length, 8);
+            for (let i = 0; i < numDots; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot-indicator' + (i === 0 ? ' active' : '');
+                dot.dataset.index = i;
+                progressContainer.appendChild(dot);
+            }
+            const dots = progressContainer.querySelectorAll('.dot-indicator');
+
+            function updateProgressDots(progress) {
+                const total = dots.length;
+                const idx = Math.round(progress * (total - 1));
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === idx);
+                });
+            }
+
+            // Click dots to jump
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', function () {
+                    const progress = i / (dots.length - 1);
+                    const scrollPos = progress * scrollableWidth;
+                    gsap.to(track, {
+                        x: -scrollPos,
+                        duration: 0.8,
+                        ease: 'power2.inOut',
+                        overwrite: 'auto'
+                    });
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                });
+            });
+
+            // ============================================================
+            // 14. WHY CHOOSE US — SLIDING CARDS (Intersection Observer)
+            // ============================================================
+            const benefitCards = document.querySelectorAll('.benefit-card');
+            const benefitObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        const delay = parseFloat(entry.target.dataset.delay) || 0;
+                        setTimeout(function () {
+                            entry.target.classList.add('visible');
+                        }, delay * 1000);
+                        benefitObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            benefitCards.forEach(function (card) {
+                benefitObserver.observe(card);
+            });
+
+            // ============================================================
+            // 15. HOW IT WORKS — STUNNING (Intersection Observer)
+            // ============================================================
+            const stepCards = document.querySelectorAll('.step-card');
+            const stepObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        const delay = parseFloat(entry.target.dataset.delay) || 0;
+                        setTimeout(function () {
+                            entry.target.classList.add('visible');
+                        }, delay * 1000);
+                        stepObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            stepCards.forEach(function (card) {
+                stepObserver.observe(card);
+            });
+
+            // ============================================================
+            // 16. TESTIMONIALS — AUTO SCROLLING MARQUEE
+            // ============================================================
+            const testimonialData = [{
+                name: 'James Davidson',
+                role: 'Daily Runner',
+                avatar: 'JD',
+                text: 'Absolutely flawless fit. The sneakers were immaculate and the comfort is next-level. Highly recommend!'
+            }, {
+                name: 'Sarah Mitchell',
+                role: 'Sneaker Enthusiast',
+                avatar: 'SM',
+                text: 'I\'ve bought from many stores, but Stackly is on another level. The Aero Max Runner is a dream to wear.'
+            }, {
+                name: 'Robert & Karen',
+                role: 'Fitness Couple',
+                avatar: 'RK',
+                text: 'Incredible quality and stunning designs. The customer service team helped us find the perfect sizing.'
+            }, {
+                name: 'Michael Chen',
+                role: 'Tech Entrepreneur',
+                avatar: 'MC',
+                text: 'The Monarch Luxury Suede is breathtaking. Stackly delivered perfection from order to unboxing.'
+            }, {
+                name: 'Emily Watson',
+                role: 'Fashion Designer',
+                avatar: 'EW',
+                text: 'I only trust Stackly for my sneaker rotation. The attention to detail in their catalog is unmatched.'
+            }, {
+                name: 'David Park',
+                role: 'Professional Athlete',
+                avatar: 'DP',
+                text: 'Incredible selection of high-performance runners. The Apex Carbon Flight is an absolute beast on the track.'
+            }];
+
+            const trackMarquee = document.getElementById('testimonialTrack');
+            let testimonialHTML = '';
+
+            for (let repeat = 0; repeat < 2; repeat++) {
+                testimonialData.forEach(function (t) {
+                    testimonialHTML += `
+                        <div class="testimonial-card-marquee">
+                            <div class="stars">★★★★★</div>
+                            <blockquote>"${t.text}"</blockquote>
+                            <div class="author">
+                                <div class="avatar">${t.avatar}</div>
+                                <div>
+                                    <div class="name">${t.name}</div>
+                                    <div class="role">${t.role}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            trackMarquee.innerHTML = testimonialHTML;
+
+            // ============================================================
+            // 17. OFFER CARD
+            // ============================================================
+            gsap.from('#offerCard', {
+                scrollTrigger: {
+                    trigger: '#offerCard',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 60,
+                scale: 0.92,
+                filter: 'blur(8px)',
+                duration: 1.2,
+                ease: 'power3.out'
+            });
+
+            // ============================================================
+            // 18. CTA — PARTICLE BURST
+            // ============================================================
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let isBursting = false;
+            let burstTriggered = false;
+
+            function resizeCanvas() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor(x, y, color, size, vx, vy, life) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    this.size = size || 6 + Math.random() * 10;
+                    this.vx = vx || (Math.random() - 0.5) * 12;
+                    this.vy = vy || (Math.random() - 0.5) * 12 - 4;
+                    this.life = life || 1;
+                    this.maxLife = this.life;
+                    this.gravity = 0.08;
+                    this.drag = 0.99;
+                    this.rotation = Math.random() * 360;
+                    this.rotationSpeed = (Math.random() - 0.5) * 10;
+                    this.shape = Math.random() > 0.5 ? 'circle' : 'rect';
+                }
+
+                update() {
+                    this.vx *= this.drag;
+                    this.vy *= this.drag;
+                    this.vy += this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.life -= 0.004;
+                    this.rotation += this.rotationSpeed;
+                    return this.life > 0;
+                }
+
+                draw(ctx) {
+                    const alpha = Math.max(0, this.life / this.maxLife);
+                    const size = this.size * (0.3 + 0.7 * (this.life / this.maxLife));
+
+                    ctx.save();
+                    ctx.globalAlpha = alpha;
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate((this.rotation * Math.PI) / 180);
+
+                    if (this.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                        ctx.shadowColor = this.color;
+                        ctx.shadowBlur = 10;
+                    } else {
+                        ctx.fillStyle = this.color;
+                        ctx.fillRect(-size / 2, -size / 2, size, size);
+                        ctx.shadowColor = this.color;
+                        ctx.shadowBlur = 6;
+                    }
+
+                    ctx.restore();
+                }
+            }
+
+            function createBurst(x, y) {
+                const colors = [
+                    '#c9a84c', '#e8d5a3', '#f5e6c8', '#b8942e',
+                    '#ffd700', '#ff6b6b', '#ff9ff3', '#54a0ff',
+                    '#ff9f43', '#00d2d3', '#f368e0', '#ff6348'
+                ];
+
+                const numParticles = 180 + Math.floor(Math.random() * 80);
+
+                for (let i = 0; i < numParticles; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 4 + Math.random() * 14;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const size = 4 + Math.random() * 14;
+
+                    particles.push(new Particle(
+                        x + (Math.random() - 0.5) * 40,
+                        y + (Math.random() - 0.5) * 40,
+                        color,
+                        size,
+                        Math.cos(angle) * speed,
+                        Math.sin(angle) * speed - 2,
+                        1 + Math.random() * 0.5
+                    ));
+                }
+
+                for (let i = 0; i < 40; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 6 + Math.random() * 18;
+                    const p = new Particle(
+                        x + (Math.random() - 0.5) * 30,
+                        y + (Math.random() - 0.5) * 30,
+                        '#ffd700',
+                        2 + Math.random() * 5,
+                        Math.cos(angle) * speed,
+                        Math.sin(angle) * speed - 4,
+                        1.2 + Math.random() * 0.6
+                    );
+                    p.shape = 'circle';
+                    particles.push(p);
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles = particles.filter(function (p) { return p.update(); });
+
+                particles.forEach(function (p) { p.draw(ctx); });
+
+                if (particles.length > 0) {
+                    requestAnimationFrame(animateParticles);
+                } else {
+                    canvas.classList.remove('active');
+                    isBursting = false;
+                }
+            }
+
+            const ctaSection = document.getElementById('cta');
+            const ctaObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting && !burstTriggered) {
+                        burstTriggered = true;
+                        triggerBurst();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            ctaObserver.observe(ctaSection);
+
+            function triggerBurst() {
+                if (isBursting) return;
+                isBursting = true;
+                burstTriggered = true;
+
+                const rect = canvas.getBoundingClientRect();
+                const cx = rect.width / 2;
+                const cy = rect.height / 2;
+
+                canvas.classList.add('active');
+
+                createBurst(cx, cy);
+                createBurst(cx - 120, cy - 80);
+                createBurst(cx + 130, cy + 60);
+                createBurst(cx - 100, cy + 100);
+                createBurst(cx + 110, cy - 90);
+
+                animateParticles();
+
+                setTimeout(function () {
+                    burstTriggered = false;
+                }, 6000);
+            }
+
+            document.querySelectorAll('.cta-section .btn').forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    triggerBurst();
+                    setTimeout(function () {
+                        window.location.href = btn.getAttribute('href') || '#';
+                    }, 800);
+                });
+            });
+
+            // ============================================================
+            // 19. PARALLAX
+            // ============================================================
+            var parallaxCar = document.getElementById('parallaxCar');
+            if (parallaxCar) {
+                gsap.to(parallaxCar, {
+                    scrollTrigger: {
+                        trigger: 'body',
+                        start: 'top top',
+                        end: 'bottom bottom',
+                        scrub: 2,
+                        invalidateOnRefresh: true
+                    },
+                    y: window.innerHeight * 0.8,
+                    opacity: 0.06,
+                    rotation: -8,
+                    scale: 0.6,
+                    ease: 'none'
+                });
+            }
+
+            gsap.to('.hero-image .car-wrapper', {
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1.5
+                },
+                y: 40,
+                scale: 0.98,
+                ease: 'none'
+            });
+
+            gsap.to('.hero-content', {
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1.5
+                },
+                y: -30,
+                ease: 'none'
+            });
+
+            // ============================================================
+            // 20. REFRESH SCROLLTRIGGER & RESIZE HANDLER
+            // ============================================================
+            function refreshScroll() {
+                // Recalculate with fresh values
+                scrollableWidth = calculateScrollDistance();
+
+                // Update the scroll trigger
+                if (horizontalScroll && horizontalScroll.scrollTrigger) {
+                    horizontalScroll.scrollTrigger.refresh();
+                }
+                ScrollTrigger.refresh();
+
+                // Update progress dots
+                if (horizontalScroll && horizontalScroll.progress !== undefined) {
+                    updateProgressDots(horizontalScroll.progress);
+                }
+            }
+
+            // Initial refresh after layout settles
+            setTimeout(function () { refreshScroll(); }, 500);
+
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    refreshScroll();
+                }, 200);
+            });
+
+            console.log('✅ All animations initialized with full horizontal scroll (8 cars)!');
+
+        }); // end window.load
+    </script>
+
+</body>
+
+</html>
